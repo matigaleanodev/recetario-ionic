@@ -8,12 +8,12 @@ export const routes: Routes = [
   {
     path: 'recipe/:id',
     loadComponent: () =>
-      import('./pages/recipe/recipe.page').then((m) => m.RecipePage),
+      import('@pages/recipe/recipe.page').then((m) => m.RecipePage),
   },
   {
     path: 'similar/:id',
     loadComponent: () =>
-      import('./pages/similar/similar.page').then((m) => m.SimilarPage),
+      import('@pages/similar/similar.page').then((m) => m.SimilarPage),
   },
   {
     path: '**',
