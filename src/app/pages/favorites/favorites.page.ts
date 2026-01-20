@@ -1,20 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonRow,
+  IonGrid,
+  IonCol,
+} from '@ionic/angular/standalone';
+import { RecipeCardComponent } from '@shared/components/recipe-card/recipe-card.component';
+import { RecipeInfo } from '@shared/models/recipe.model';
+import { FavoritesService } from '@shared/services/favorites/favorites.service';
 
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.page.html',
   styleUrls: ['./favorites.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, FormsModule]
+  imports: [
+    IonCol,
+    IonGrid,
+    IonRow,
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    RecipeCardComponent,
+  ],
 })
-export class FavoritesPage implements OnInit {
+export class FavoritesPage {
+  private readonly _service = inject(FavoritesService);
 
-  constructor() { }
+  readonly favoritos = computed(() => this._service.favoritos());
 
-  ngOnInit() {
+  toggleFavorito(receta: RecipeInfo) {
+    const esFavorito = this._service.esFavorito(receta);
+    if (esFavorito) {
+      this._service.removerFavorito(receta);
+    } else {
+      this._service.agregarFavorito(receta);
+    }
   }
 
+  recetasSimilares(receta: RecipeInfo) {}
 }

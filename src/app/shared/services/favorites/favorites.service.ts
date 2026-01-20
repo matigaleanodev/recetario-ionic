@@ -35,6 +35,12 @@ export class FavoritesService {
     this.actualizarFavoritos(favoritos);
   }
 
+  esFavorito({ id }: RecipeInfo) {
+    const favoritos = this.favoritos();
+
+    return favoritos.some((f) => f.id === id);
+  }
+
   private async actualizarFavoritos(nuevaLista: RecipeInfo[]) {
     this.favoritos.set(nuevaLista);
 

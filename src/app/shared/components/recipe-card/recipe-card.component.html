@@ -5,8 +5,9 @@
         <ion-button
           fill="solid"
           shape="round"
-          color="danger"
+          [color]="esFavorito() ? 'danger' : 'medium'"
           class="recipe-card-action"
+          (click)="estadoFavoritos($event)"
         >
           <ion-icon slot="icon-only" name="heart"></ion-icon>
         </ion-button>
@@ -15,6 +16,7 @@
           shape="round"
           color="primary"
           class="recipe-card-action"
+          (click)="recetasSimilares($event)"
         >
           <ion-icon slot="icon-only" name="repeat"></ion-icon>
         </ion-button>

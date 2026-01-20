@@ -12,6 +12,7 @@ import {
 } from '@ionic/angular/standalone';
 import { RecipeCardComponent } from '@shared/components/recipe-card/recipe-card.component';
 import { RecipeInfo } from '@shared/models/recipe.model';
+import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { RecipeService } from '@shared/services/recipe/recipe.service';
 
 @Component({
@@ -31,16 +32,24 @@ import { RecipeService } from '@shared/services/recipe/recipe.service';
     RecipeCardComponent,
   ],
 })
-export class HomePage implements OnInit {
+export class HomePage {
   readonly _recipes = inject(RecipeService);
+  readonly _favoritos = inject(FavoritesService);
 
   readonly recipes = computed(() => this._recipes.recipes());
 
-  constructor() {}
+  ionViewWillEnter() {
+    this._favoritos.cargarFavoritos();
+  }
 
-  ngOnInit() {}
-
-  estadoFavoritos(receta: RecipeInfo) {}
+  toggleFavorito(receta: RecipeInfo) {
+    const esFavorito = this._favoritos.esFavorito(receta);
+    if (esFavorito) {
+      this._favoritos.removerFavorito(receta);
+    } else {
+      this._favoritos.agregarFavorito(receta);
+    }
+  }
 
   recetasSimilares(receta: RecipeInfo) {}
 }

@@ -1,4 +1,11 @@
-import { Component, computed, input, OnInit, output } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  output,
+} from '@angular/core';
 import {
   IonCard,
   IonImg,
@@ -10,6 +17,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { RecipeInfo } from '@shared/models/recipe.model';
+import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { addIcons } from 'ionicons';
 import { heart, repeat } from 'ionicons/icons';
 
@@ -33,6 +41,12 @@ export class RecipeCardComponent {
 
   readonly favorito = output<RecipeInfo>();
   readonly similares = output<RecipeInfo>();
+
+  private readonly _favoritos = inject(FavoritesService);
+
+  readonly esFavorito = computed(() => {
+    return this._favoritos.esFavorito(this.recipe());
+  });
 
   readonly recipeImageUrl = computed(() => {
     const recipe = this.recipe();
