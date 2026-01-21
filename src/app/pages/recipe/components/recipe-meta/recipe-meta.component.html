@@ -1,0 +1,53 @@
+<div class="recipe-meta">
+  <div class="meta-info">
+    <div class="meta-item">
+      <ion-icon name="time-outline"></ion-icon>
+      <span>{{ readyInMinutes() }}m</span>
+    </div>
+
+    <div class="meta-item">
+      <ion-icon name="restaurant-outline"></ion-icon>
+      <span>{{ servings() }}</span>
+    </div>
+  </div>
+
+  <div class="meta-flags">
+    <ion-icon
+      name="leaf-outline"
+      [class.active]="vegan()"
+      ion-tooltip="Vegan"
+    ></ion-icon>
+
+    <ion-icon
+      name="nutrition-outline"
+      [class.active]="vegetarian()"
+      ion-tooltip="Vegetarian"
+    ></ion-icon>
+
+    <ion-icon
+      name="ban-outline"
+      [class.active]="glutenFree()"
+      ion-tooltip="Gluten free"
+    ></ion-icon>
+
+    <ion-icon
+      name="cafe-outline"
+      [class.active]="dairyFree()"
+      ion-tooltip="Dairy free"
+    ></ion-icon>
+  </div>
+
+  <div class="meta-actions">
+    <ion-button fill="clear" (click)="toggleFavorite.emit()">
+      <ion-icon
+        slot="icon-only"
+        [color]="isFavorite() ? 'danger' : 'medium'"
+        name="heart-outline"
+      ></ion-icon>
+    </ion-button>
+
+    <ion-button fill="clear" (click)="viewSimilar.emit()">
+      <ion-icon slot="icon-only" name="repeat-outline"></ion-icon>
+    </ion-button>
+  </div>
+</div>

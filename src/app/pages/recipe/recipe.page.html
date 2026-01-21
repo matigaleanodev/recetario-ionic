@@ -1,13 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>recipe</ion-title>
+    <ion-title> {{recipe().title}} </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">recipe</ion-title>
+      <ion-title size="large"> {{recipe().title}} </ion-title>
     </ion-toolbar>
   </ion-header>
 </ion-content>
+<ion-footer fixed slot="bottom">
+  <app-recipe-meta
+    [readyInMinutes]="recipe().readyInMinutes"
+    [servings]="recipe().servings"
+    [isFavorite]="isFavorite()"
+    [vegetarian]="recipe().vegetarian"
+    [vegan]="recipe().vegan"
+    [glutenFree]="recipe().glutenFree"
+    [dairyFree]="recipe().dairyFree"
+    (toggleFavorite)="toggleFavorito()"
+    (viewSimilar)="verSimilares()"
+  />
+</ion-footer>

@@ -1,4 +1,8 @@
-<ion-card class="recipe-card" [button]="true">
+<ion-card
+  class="recipe-card"
+  [button]="true"
+  (click)="seleccionarReceta($event)"
+>
   <ion-card-header class="recipe-card-header">
     <ion-toolbar color="transparent">
       <ion-buttons slot="end">

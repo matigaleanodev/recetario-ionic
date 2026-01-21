@@ -41,6 +41,7 @@ export class RecipeCardComponent {
 
   readonly favorito = output<RecipeInfo>();
   readonly similares = output<RecipeInfo>();
+  readonly seleccionar = output<RecipeInfo>();
 
   private readonly _favoritos = inject(FavoritesService);
 
@@ -65,6 +66,11 @@ export class RecipeCardComponent {
       heart,
       repeat,
     });
+  }
+
+  seleccionarReceta(ev: Event) {
+    ev.stopPropagation();
+    this.seleccionar.emit(this.recipe());
   }
 
   recetasSimilares(ev: Event) {
