@@ -5,6 +5,7 @@ import {
   provideRouter,
   withPreloading,
   PreloadAllModules,
+  withComponentInputBinding,
 } from '@angular/router';
 import {
   IonicRouteStrategy,
@@ -21,6 +22,10 @@ bootstrapApplication(AppComponent, {
     provideZoneChangeDetection(),
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
-    provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideRouter(
+      routes,
+      withPreloading(PreloadAllModules),
+      withComponentInputBinding(),
+    ),
   ],
 });
