@@ -7,190 +7,138 @@ import { RecipeInfo } from '@shared/models/recipe.model';
 export class RecipeService {
   readonly selectedRecipe = signal<RecipeInfo | null>(null);
 
-  readonly recipes = signal<RecipeInfo[]>(MOCK_RECIPES);
+  readonly recipes = signal<RecipeInfo[]>(this.generateMockRecipes());
 
   seleccionarReceta(recipe: RecipeInfo) {
     this.selectedRecipe.set(recipe);
   }
-}
 
-export const MOCK_RECIPES: RecipeInfo[] = [
-  {
-    id: 716429,
-    title: 'Pasta con salsa de tomate y albahaca',
-    image: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
-    imageType: 'jpg',
-    readyInMinutes: 30,
-    servings: 2,
-    sourceUrl: 'https://spoonacular.com/recipes/pasta-with-tomato-sauce-716429',
-    spoonacularSourceUrl:
-      'https://spoonacular.com/recipes/pasta-with-tomato-sauce-716429',
-    summary:
-      'Una pasta simple y deliciosa con salsa de tomate natural y albahaca fresca.',
-    instructions: 'Cocinar la pasta. Preparar la salsa. Mezclar y servir.',
-    analyzedInstructions: [
-      {
-        name: '',
-        steps: [
-          {
-            number: 1,
-            step: 'Hervir agua con sal y cocinar la pasta hasta que esté al dente.',
+  generateMockRecipes(): RecipeInfo[] {
+    const baseIngredients = [
+      this.createIngredient(2, 'tomate', 150, 'g'),
+      this.createIngredient(3, 'cebolla', 100, 'g'),
+      this.createIngredient(1, 'pasta', 200, 'g'),
+      this.createIngredient(4, 'ajo', 2, 'dientes'),
+      this.createIngredient(5, 'aceite de oliva', 2, 'cda'),
+      this.createIngredient(6, 'queso rallado', 50, 'g'),
+    ];
+
+    const baseSteps = [
+      'Preparar todos los ingredientes.',
+      'Calentar una sartén con aceite.',
+      'Agregar los ingredientes principales.',
+      'Cocinar a fuego medio durante varios minutos.',
+      'Servir caliente y disfrutar.',
+    ];
+
+    const recipesData = [
+      { id: 1001, title: 'Pasta con salsa roja', vegetarian: true },
+      { id: 1002, title: 'Pollo al horno con papas', vegetarian: false },
+      { id: 1003, title: 'Arroz salteado con vegetales', vegetarian: true },
+      { id: 1004, title: 'Ensalada César', vegetarian: false },
+      { id: 1005, title: 'Wok de vegetales', vegetarian: true },
+      { id: 1006, title: 'Tacos de carne', vegetarian: false },
+      { id: 1007, title: 'Milanesas con puré', vegetarian: false },
+      { id: 1008, title: 'Risotto de champiñones', vegetarian: true },
+      { id: 1009, title: 'Curry de verduras', vegetarian: true },
+      { id: 1010, title: 'Salmón al limón', vegetarian: false },
+      { id: 1011, title: 'Pizza casera', vegetarian: true },
+      { id: 1012, title: 'Omelette de queso', vegetarian: true },
+    ];
+
+    return recipesData.map((data, index) =>
+      this.createRecipe(
+        data.id,
+        data.title,
+        data.vegetarian,
+        baseIngredients,
+        baseSteps,
+        index,
+      ),
+    );
+  }
+
+  createRecipe(
+    id: number,
+    title: string,
+    vegetarian: boolean,
+    ingredients: any[],
+    steps: string[],
+    index: number,
+  ): RecipeInfo {
+    return {
+      id,
+      title,
+      image: `https://spoonacular.com/recipeImages/${id}-556x370.jpg`,
+      imageType: 'jpg',
+      readyInMinutes: 20 + index * 5,
+      servings: 2 + (index % 3),
+      sourceUrl: '',
+      spoonacularSourceUrl: '',
+      summary: `Receta deliciosa de ${title.toLowerCase()}.`,
+      instructions: steps.join(' '),
+      analyzedInstructions: [
+        {
+          name: '',
+          steps: steps.map((step, i) => ({
+            number: i + 1,
+            step,
             ingredients: [],
             equipment: [],
-          },
-          {
-            number: 2,
-            step: 'Saltear ajo, agregar tomate triturado y cocinar 10 minutos.',
-            ingredients: [],
-            equipment: [],
-          },
-          {
-            number: 3,
-            step: 'Mezclar la pasta con la salsa y agregar albahaca fresca.',
-            ingredients: [],
-            equipment: [],
-          },
-        ],
-      },
-    ],
-    extendedIngredients: [
-      {
-        id: 20420,
-        aisle: 'Pasta and Rice',
-        image: 'spaghetti.jpg',
-        consistency: 'solid',
-        name: 'spaghetti',
-        nameClean: 'spaghetti',
-        original: '200 g de spaghetti',
-        originalName: 'spaghetti',
-        amount: 200,
-        unit: 'g',
-        meta: [],
-        measures: {
-          us: { amount: 7, unitShort: 'oz', unitLong: 'ounces' },
-          metric: { amount: 200, unitShort: 'g', unitLong: 'grams' },
+          })),
         },
+      ],
+      extendedIngredients: ingredients.slice(0, 5),
+      cuisines: ['International'],
+      dishTypes: ['main course'],
+      diets: vegetarian ? ['vegetarian'] : [],
+      occasions: [],
+      vegetarian,
+      vegan: false,
+      glutenFree: false,
+      dairyFree: false,
+      veryHealthy: vegetarian,
+      cheap: true,
+      veryPopular: index % 2 === 0,
+      sustainable: vegetarian,
+      lowFodmap: false,
+      weightWatcherSmartPoints: vegetarian ? 8 : 14,
+      gaps: 'no',
+      preparationMinutes: 10,
+      cookingMinutes: 10 + index * 2,
+      aggregateLikes: 100 + index * 50,
+      healthScore: vegetarian ? 80 : 50,
+      creditsText: 'Fake Spoonacular',
+      sourceName: 'Spoonacular',
+      pricePerServing: 150 + index * 20,
+      winePairing: {
+        pairedWines: [],
+        pairingText: '',
+        productMatches: [],
       },
-    ],
-    cuisines: ['Italian'],
-    dishTypes: ['main course'],
-    diets: ['vegetarian'],
-    occasions: [],
-    vegetarian: true,
-    vegan: false,
-    glutenFree: false,
-    dairyFree: true,
-    veryHealthy: false,
-    cheap: true,
-    veryPopular: true,
-    sustainable: false,
-    lowFodmap: false,
-    weightWatcherSmartPoints: 12,
-    gaps: 'no',
-    preparationMinutes: 10,
-    cookingMinutes: 20,
-    aggregateLikes: 320,
-    healthScore: 65,
-    creditsText: 'Fake Spoonacular',
-    sourceName: 'Spoonacular',
-    pricePerServing: 150,
-    winePairing: {
-      pairedWines: ['chianti'],
-      pairingText: 'Combina bien con un vino tinto liviano.',
-      productMatches: [],
-    },
-    complete: true,
-    author: 'Spoonacular',
-    originalId: null,
-  },
+      complete: true,
+      author: 'Spoonacular',
+      originalId: null,
+    };
+  }
 
-  {
-    id: 715538,
-    title: 'Hamburguesa clásica con queso',
-    image: 'https://spoonacular.com/recipeImages/715538-556x370.jpg',
-    imageType: 'jpg',
-    readyInMinutes: 25,
-    servings: 1,
-    sourceUrl: '',
-    spoonacularSourceUrl: '',
-    summary: 'Hamburguesa jugosa con queso cheddar y pan tostado.',
-    instructions: 'Cocinar la carne. Armar la hamburguesa.',
-    analyzedInstructions: [],
-    extendedIngredients: [],
-    cuisines: ['American'],
-    dishTypes: ['main course'],
-    diets: [],
-    occasions: [],
-    vegetarian: false,
-    vegan: false,
-    glutenFree: false,
-    dairyFree: false,
-    veryHealthy: false,
-    cheap: false,
-    veryPopular: true,
-    sustainable: false,
-    lowFodmap: false,
-    weightWatcherSmartPoints: 18,
-    gaps: 'no',
-    preparationMinutes: 5,
-    cookingMinutes: 20,
-    aggregateLikes: 580,
-    healthScore: 40,
-    creditsText: 'Fake Spoonacular',
-    sourceName: 'Spoonacular',
-    pricePerServing: 300,
-    winePairing: {
-      pairedWines: [],
-      pairingText: '',
-      productMatches: [],
-    },
-    complete: true,
-    author: 'Spoonacular',
-    originalId: null,
-  },
-
-  {
-    id: 782585,
-    title: 'Ensalada fresca de quinoa',
-    image: 'https://spoonacular.com/recipeImages/782585-556x370.jpg',
-    imageType: 'jpg',
-    readyInMinutes: 20,
-    servings: 2,
-    sourceUrl: '',
-    spoonacularSourceUrl: '',
-    summary: 'Ensalada liviana y nutritiva con quinoa y vegetales.',
-    instructions: 'Cocinar la quinoa y mezclar con vegetales.',
-    analyzedInstructions: [],
-    extendedIngredients: [],
-    cuisines: ['Mediterranean'],
-    dishTypes: ['salad'],
-    diets: ['vegan', 'gluten free'],
-    occasions: [],
-    vegetarian: true,
-    vegan: true,
-    glutenFree: true,
-    dairyFree: true,
-    veryHealthy: true,
-    cheap: false,
-    veryPopular: false,
-    sustainable: true,
-    lowFodmap: false,
-    weightWatcherSmartPoints: 6,
-    gaps: 'no',
-    preparationMinutes: 10,
-    cookingMinutes: 10,
-    aggregateLikes: 210,
-    healthScore: 85,
-    creditsText: 'Fake Spoonacular',
-    sourceName: 'Spoonacular',
-    pricePerServing: 200,
-    winePairing: {
-      pairedWines: [],
-      pairingText: '',
-      productMatches: [],
-    },
-    complete: true,
-    author: 'Spoonacular',
-    originalId: null,
-  },
-];
+  createIngredient(id: number, name: string, amount: number, unit: string) {
+    return {
+      id,
+      aisle: '',
+      image: '',
+      consistency: 'solid',
+      name,
+      nameClean: name,
+      original: `${amount} ${unit} de ${name}`,
+      originalName: name,
+      amount,
+      unit,
+      meta: [],
+      measures: {
+        us: { amount, unitShort: unit, unitLong: unit },
+        metric: { amount, unitShort: unit, unitLong: unit },
+      },
+    };
+  }
+}
