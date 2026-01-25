@@ -1,10 +1,17 @@
-import { inject, Injectable, signal } from '@angular/core';
+import {
+  computed,
+  inject,
+  Injectable,
+  linkedSignal,
+  signal,
+} from '@angular/core';
+import { RecipeInfo } from '@shared/models/recipe.model';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { StorageService } from '@shared/services/storage/storage.service';
 
 const KEY_SHOPPING = 'SHOPPING_LIST';
 
-interface ShoppingRecipeState {
+export interface ShoppingRecipeState {
   recipeId: number;
   checkedIngredientIds: number[];
 }
@@ -16,11 +23,36 @@ export class ShoppingListService {
   private readonly _storage = inject(StorageService);
   private readonly _favoritos = inject(FavoritesService);
 
-  readonly shoppingState = signal<ShoppingRecipeState[]>([]);
+  readonly shoppingState = linkedSignal<RecipeInfo[], ShoppingRecipeState[]>({
+    source: () => this.favoritos(),
+    computation: (
+      favoritos: RecipeInfo[],
+      previous?: { source: RecipeInfo[]; value: ShoppingRecipeState[] },
+    ) => {
+      const current = previous?.value ?? [];
+      const favoritosIds = favoritos.map((r) => r.id);
+
+      const filtrados = current.filter((s) =>
+        favoritosIds.includes(s.recipeId),
+      );
+
+      const nuevos = favoritosIds
+        .filter((id) => !filtrados.some((s) => s.recipeId === id))
+        .map((id) => ({
+          recipeId: id,
+          checkedIngredientIds: [],
+        }));
+
+      return [...filtrados, ...nuevos];
+    },
+  });
+  readonly favoritos = computed(() => this._favoritos.favoritos());
 
   async init() {
     await this.load();
-    this.syncWithFavorites();
+    const updated = await this.syncWithFavorites(this.favoritos());
+    this.shoppingState.set(updated);
+    await this.persist();
   }
 
   private async load() {
@@ -34,8 +66,9 @@ export class ShoppingListService {
     await this._storage.setItem(KEY_SHOPPING, this.shoppingState());
   }
 
-  private syncWithFavorites() {
-    const favoritos = this._favoritos.favoritos();
+  private async syncWithFavorites(
+    favoritos: RecipeInfo[],
+  ): Promise<ShoppingRecipeState[]> {
     const current = this.shoppingState();
 
     const favoritosIds = favoritos.map((r) => r.id);
@@ -49,8 +82,7 @@ export class ShoppingListService {
         checkedIngredientIds: [],
       }));
 
-    this.shoppingState.set([...filtrados, ...nuevos]);
-    this.persist();
+    return [...filtrados, ...nuevos];
   }
 
   getRecipeState(recipeId: number) {
@@ -64,7 +96,7 @@ export class ShoppingListService {
     return state.checkedIngredientIds.includes(ingredientId);
   }
 
-  toggleIngredient(recipeId: number, ingredientId: number) {
+  async toggleIngredient(recipeId: number, ingredientId: number) {
     const list = [...this.shoppingState()];
     const state = list.find((s) => s.recipeId === recipeId);
 
@@ -79,15 +111,16 @@ export class ShoppingListService {
     }
 
     this.shoppingState.set(list);
-    this.persist();
+    await this.persist();
   }
 
-  clearRecipe(recipeId: number) {
+  async clearRecipe(recipeId: number) {
     const filtered = this.shoppingState().filter(
       (s) => s.recipeId !== recipeId,
     );
 
     this.shoppingState.set(filtered);
-    this.persist();
+
+    await this.persist();
   }
 }

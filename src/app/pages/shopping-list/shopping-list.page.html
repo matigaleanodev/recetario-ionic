@@ -10,4 +10,10 @@
       <ion-title size="large">shopping-list</ion-title>
     </ion-toolbar>
   </ion-header>
+  @for (item of favoritos(); track $index) {
+  <app-shopping-recipe-card
+    [recipe]="item"
+    [shoppingState]="getShoppingState(item.id)"
+  ></app-shopping-recipe-card>
+  }
 </ion-content>
