@@ -1,0 +1,68 @@
+:host {
+  display: block;
+}
+
+.info-hero {
+  padding: 2rem 1.25rem 1.25rem;
+}
+
+.info-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.info-hero h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.info-hero p {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.info-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 0;
+}
+
+ion-list {
+  margin-bottom: 0.85rem;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 0;
+}
+
+ion-list-header {
+  background: rgba(var(--ion-color-primary-rgb), 0.08);
+  min-height: 44px;
+}
+
+ion-list-header ion-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+ion-item {
+  --min-height: 52px;
+}
+
+ion-item ion-icon {
+  color: var(--ion-color-primary);
+  font-size: 1.25rem;
+}
+
+ion-item h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+ion-item p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--ion-color-medium);
+}

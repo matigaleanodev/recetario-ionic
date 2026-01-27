@@ -1,21 +1,25 @@
-ion-grid {
+.favorites-header {
+  padding: 2rem 1.25rem 1.25rem;
+}
+
+.favorites-header-inner {
   max-width: 1200px;
   margin: 0 auto;
 }
-.favorites-header {
-  padding: 2rem 1.25rem 1.25rem;
 
-  h1 {
-    margin: 0;
+.favorites-header h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
 
-    font-size: 1.7rem;
-    font-weight: 600;
-  }
+.favorites-header p {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
 
-  p {
-    margin-top: 0.25rem;
-
-    font-size: 0.9rem;
-    color: var(--ion-color-medium);
-  }
+ion-grid {
+  max-width: 1200px;
+  margin: 0 auto;
 }
