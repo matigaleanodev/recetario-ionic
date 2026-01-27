@@ -23,12 +23,20 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'shopping-list',
+    loadComponent: () =>
+      import('./pages/shopping-list/shopping-list.page').then(
+        (m) => m.ShoppingListPage,
+      ),
+  },
+  {
+    path: 'info',
+    loadComponent: () =>
+      import('./pages/info/info.page').then((m) => m.InfoPage),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',
-  },
-  {
-    path: 'shopping-list',
-    loadComponent: () => import('./pages/shopping-list/shopping-list.page').then( m => m.ShoppingListPage)
   },
 ];
