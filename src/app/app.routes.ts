@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { recipeResolver } from '@shared/resolver/recipe-resolver';
+import { recipeResolver } from '@recipes/resolver/recipe-resolver';
 
 export const routes: Routes = [
   {

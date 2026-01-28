@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, effect, inject, OnInit } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonCol, IonRow, IonGrid } from '@ionic/angular/standalone';
@@ -10,6 +10,7 @@ import { RecipeService } from '@shared/services/recipe/recipe.service';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
 import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 import { RecipeApiService } from '@recipes/services/recipe-api/recipe-api.service';
+import { LoadingService } from '@shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-home',
@@ -30,8 +31,21 @@ export class HomePage {
   readonly _recipes = inject(RecipeApiService);
   readonly _favoritos = inject(FavoritesService);
   readonly _nav = inject(NavService);
+  readonly _loading = inject(LoadingService);
 
   readonly recipes = computed(() => this._recipes.dailyRecipes.value());
+
+  constructor() {
+    effect(async () => {
+      const loading = this._recipes.dailyRecipes.isLoading();
+
+      if (loading) {
+        await this._loading.show();
+      } else {
+        await this._loading.hide();
+      }
+    });
+  }
 
   ionViewWillEnter() {
     this._favoritos.cargarFavoritos();
