@@ -5,7 +5,8 @@
     "baseUrl": "./",
     "paths": {
       "@pages/*": ["src/app/pages/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@shared/*": ["src/app/shared/*"],
+      "@recipes/*": ["src/app/recipes/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

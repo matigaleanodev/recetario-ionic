@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Ingredient } from '@shared/models/recipe.model';
+import { RecipeIngredient } from '@recipes/models/recipe-ingredient.model';
 
 @Component({
   selector: 'app-recipe-ingredients',
@@ -8,5 +8,5 @@ import { Ingredient } from '@shared/models/recipe.model';
   styleUrls: ['./recipe-ingredients.component.scss'],
 })
 export class RecipeIngredientsComponent {
-  readonly ingredients = input.required<Ingredient[]>();
+  readonly ingredients = input.required<RecipeIngredient[]>();
 }

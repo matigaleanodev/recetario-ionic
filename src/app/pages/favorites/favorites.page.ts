@@ -1,8 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
 
 import { IonContent, IonRow, IonGrid, IonCol } from '@ionic/angular/standalone';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 import { RecipeCardComponent } from '@shared/components/recipe-card/recipe-card.component';
-import { RecipeInfo } from '@shared/models/recipe.model';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { NavService } from '@shared/services/nav/nav.service';
 import { RecipeService } from '@shared/services/recipe/recipe.service';
@@ -25,7 +25,7 @@ export class FavoritesPage {
     this._service.cargarFavoritos();
   }
 
-  toggleFavorito(receta: RecipeInfo) {
+  toggleFavorito(receta: DailyRecipe) {
     const esFavorito = this._service.esFavorito(receta);
     if (esFavorito) {
       this._service.removerFavorito(receta);
@@ -34,15 +34,15 @@ export class FavoritesPage {
     }
   }
 
-  recetasSimilares(receta: RecipeInfo) {
+  recetasSimilares(receta: DailyRecipe) {
     this._recipes.seleccionarReceta(receta);
 
-    this._nav.forward(`similares/${receta.id}`);
+    this._nav.forward(`similares/${receta.sourceId}`);
   }
 
-  detalleReceta(receta: RecipeInfo) {
+  detalleReceta(receta: DailyRecipe) {
     this._recipes.seleccionarReceta(receta);
 
-    this._nav.forward(`recipe/${receta.id}`);
+    this._nav.forward(`recipe/${receta.sourceId}`);
   }
 }

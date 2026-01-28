@@ -16,7 +16,7 @@ import {
   IonButtons,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import { RecipeInfo } from '@shared/models/recipe.model';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { addIcons } from 'ionicons';
 import { heart, repeat } from 'ionicons/icons';
@@ -37,11 +37,11 @@ import { heart, repeat } from 'ionicons/icons';
   styleUrls: ['./recipe-card.component.scss'],
 })
 export class RecipeCardComponent {
-  readonly recipe = input.required<RecipeInfo>();
+  readonly recipe = input.required<DailyRecipe>();
 
-  readonly favorito = output<RecipeInfo>();
-  readonly similares = output<RecipeInfo>();
-  readonly seleccionar = output<RecipeInfo>();
+  readonly favorito = output<DailyRecipe>();
+  readonly similares = output<DailyRecipe>();
+  readonly seleccionar = output<DailyRecipe>();
 
   private readonly _favoritos = inject(FavoritesService);
 
@@ -53,12 +53,7 @@ export class RecipeCardComponent {
     const recipe = this.recipe();
     if (!recipe) return '';
 
-    return (
-      'https://img.spoonacular.com/recipes/' +
-      recipe.id +
-      '-556x370.' +
-      (recipe.imageType || 'jpg')
-    );
+    return recipe.image;
   });
 
   constructor() {

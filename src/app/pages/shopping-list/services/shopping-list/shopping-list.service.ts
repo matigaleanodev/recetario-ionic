@@ -1,4 +1,5 @@
 import { computed, inject, Injectable, linkedSignal } from '@angular/core';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 import { RecipeInfo } from '@shared/models/recipe.model';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { StorageService } from '@shared/services/storage/storage.service';
@@ -17,14 +18,14 @@ export class ShoppingListService {
   private readonly _storage = inject(StorageService);
   private readonly _favoritos = inject(FavoritesService);
 
-  readonly shoppingState = linkedSignal<RecipeInfo[], ShoppingRecipeState[]>({
+  readonly shoppingState = linkedSignal<DailyRecipe[], ShoppingRecipeState[]>({
     source: () => this.favoritos(),
     computation: (
-      favoritos: RecipeInfo[],
-      previous?: { source: RecipeInfo[]; value: ShoppingRecipeState[] },
+      favoritos: DailyRecipe[],
+      previous?: { source: DailyRecipe[]; value: ShoppingRecipeState[] },
     ) => {
       const current = previous?.value ?? [];
-      const favoritosIds = favoritos.map((r) => r.id);
+      const favoritosIds = favoritos.map((r) => r.sourceId);
 
       const filtrados = current.filter((s) =>
         favoritosIds.includes(s.recipeId),
@@ -61,11 +62,11 @@ export class ShoppingListService {
   }
 
   private async syncWithFavorites(
-    favoritos: RecipeInfo[],
+    favoritos: DailyRecipe[],
   ): Promise<ShoppingRecipeState[]> {
     const current = this.shoppingState();
 
-    const favoritosIds = favoritos.map((r) => r.id);
+    const favoritosIds = favoritos.map((r) => r.sourceId);
 
     const filtrados = current.filter((s) => favoritosIds.includes(s.recipeId));
 

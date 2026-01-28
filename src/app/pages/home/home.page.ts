@@ -8,6 +8,8 @@ import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { NavService } from '@shared/services/nav/nav.service';
 import { RecipeService } from '@shared/services/recipe/recipe.service';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
+import { RecipeApiService } from '@recipes/services/recipe-api/recipe-api.service';
 
 @Component({
   selector: 'app-home',
@@ -25,17 +27,17 @@ import { HomeHeroComponent } from './components/home-hero/home-hero.component';
   ],
 })
 export class HomePage {
-  readonly _recipes = inject(RecipeService);
+  readonly _recipes = inject(RecipeApiService);
   readonly _favoritos = inject(FavoritesService);
   readonly _nav = inject(NavService);
 
-  readonly recipes = computed(() => this._recipes.recipes());
+  readonly recipes = computed(() => this._recipes.dailyRecipes.value());
 
   ionViewWillEnter() {
     this._favoritos.cargarFavoritos();
   }
 
-  toggleFavorito(receta: RecipeInfo) {
+  toggleFavorito(receta: DailyRecipe) {
     const esFavorito = this._favoritos.esFavorito(receta);
     if (esFavorito) {
       this._favoritos.removerFavorito(receta);
@@ -44,15 +46,15 @@ export class HomePage {
     }
   }
 
-  recetasSimilares(receta: RecipeInfo) {
-    this._recipes.seleccionarReceta(receta);
+  recetasSimilares(receta: DailyRecipe) {
+    //this._recipes.seleccionarReceta(receta);
 
-    this._nav.forward(`similares/${receta.id}`);
+    this._nav.forward(`similares/${receta.sourceId}`);
   }
 
-  detalleReceta(receta: RecipeInfo) {
-    this._recipes.seleccionarReceta(receta);
+  detalleReceta(receta: DailyRecipe) {
+    //this._recipes.seleccionarReceta(receta);
 
-    this._nav.forward(`recipe/${receta.id}`);
+    this._nav.forward(`recipe/${receta.sourceId}`);
   }
 }
