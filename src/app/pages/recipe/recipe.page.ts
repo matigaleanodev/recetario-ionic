@@ -52,15 +52,18 @@ export class RecipePage {
     return recipe.image;
   });
 
-  isFavorite = computed(() => this._favoritos.esFavorito(this.recipe()));
+  isFavorite = computed(() =>
+    this._favoritos.esFavorito(this.recipe().sourceId),
+  );
 
   toggleFavorito() {
     const receta = this.recipe();
-    const esFavorito = this._favoritos.esFavorito(receta);
+    const { sourceId, title, image } = receta;
+    const esFavorito = this._favoritos.esFavorito(sourceId);
     if (esFavorito) {
-      this._favoritos.removerFavorito(receta);
+      this._favoritos.removerFavorito(sourceId);
     } else {
-      this._favoritos.agregarFavorito(receta);
+      this._favoritos.agregarFavorito({ sourceId, title, image });
     }
   }
 

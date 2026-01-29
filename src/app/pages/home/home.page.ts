@@ -35,9 +35,9 @@ export class HomePage {
   }
 
   toggleFavorito(receta: DailyRecipe) {
-    const esFavorito = this._favoritos.esFavorito(receta);
+    const esFavorito = this._favoritos.esFavorito(receta.sourceId);
     if (esFavorito) {
-      this._favoritos.removerFavorito(receta);
+      this._favoritos.removerFavorito(receta.sourceId);
     } else {
       this._favoritos.agregarFavorito(receta);
     }

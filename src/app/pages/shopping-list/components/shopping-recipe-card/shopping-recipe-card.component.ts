@@ -4,7 +4,7 @@ import {
   ShoppingRecipeState,
 } from '@pages/shopping-list/services/shopping-list/shopping-list.service';
 import { IonItem, IonCheckbox, IonLabel } from '@ionic/angular/standalone';
-import { DailyRecipe } from '@recipes/models/daily-recipe.model';
+import { ShoppingRecipe } from '@recipes/models/shopping-recipe.model';
 
 @Component({
   selector: 'app-shopping-recipe-card',
@@ -13,7 +13,7 @@ import { DailyRecipe } from '@recipes/models/daily-recipe.model';
   styleUrls: ['./shopping-recipe-card.component.scss'],
 })
 export class ShoppingRecipeCardComponent {
-  readonly recipe = input.required<DailyRecipe>();
+  readonly recipe = input.required<ShoppingRecipe>();
   readonly shoppingState = input.required<ShoppingRecipeState>();
 
   readonly ingredients = computed(() => this.recipe().ingredients);
@@ -27,7 +27,8 @@ export class ShoppingRecipeCardComponent {
     );
   }
 
-  async toggleIngredient(ingredientId: number) {
+  async toggleIngredient(ev: Event, ingredientId: number) {
+    ev.stopPropagation();
     await this._service.toggleIngredient(this.recipe().sourceId, ingredientId);
   }
 }

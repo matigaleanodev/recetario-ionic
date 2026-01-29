@@ -26,9 +26,9 @@ export class FavoritesPage {
   }
 
   toggleFavorito(receta: DailyRecipe) {
-    const esFavorito = this._service.esFavorito(receta);
+    const esFavorito = this._service.esFavorito(receta.sourceId);
     if (esFavorito) {
-      this._service.removerFavorito(receta);
+      this._service.removerFavorito(receta.sourceId);
     } else {
       this._service.agregarFavorito(receta);
     }

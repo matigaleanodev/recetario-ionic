@@ -29,18 +29,18 @@ export class FavoritesService {
     this.actualizarFavoritos(nuevaLista);
   }
 
-  removerFavorito(recipe: DailyRecipe) {
+  removerFavorito(id: number) {
     const favoritos = this.favoritos().filter(
-      ({ sourceId }) => sourceId !== recipe.sourceId,
+      ({ sourceId }) => sourceId !== id,
     );
 
     this.actualizarFavoritos(favoritos);
   }
 
-  esFavorito({ sourceId }: DailyRecipe) {
+  esFavorito(id: number) {
     const favoritos = this.favoritos();
 
-    return favoritos.some((f) => f.sourceId === sourceId);
+    return favoritos.some(({ sourceId }) => sourceId === id);
   }
 
   private async actualizarFavoritos(nuevaLista: DailyRecipe[]) {

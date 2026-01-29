@@ -46,7 +46,7 @@ export class RecipeCardComponent {
   private readonly _favoritos = inject(FavoritesService);
 
   readonly esFavorito = computed(() => {
-    return this._favoritos.esFavorito(this.recipe());
+    return this._favoritos.esFavorito(this.recipe().sourceId);
   });
 
   readonly recipeImageUrl = computed(() => {

@@ -7,8 +7,8 @@
   </div>
   <ion-grid>
     <ion-row>
-      @for (item of favoritos(); track $index) {
-      <ion-col size="12" sizeSm="6" sizeMd="4" sizeLg="3">
+      @for (item of shoppingList(); track $index) {
+      <ion-col size="12" sizeSm="6" sizeMd="4">
         <app-shopping-recipe-card
           [recipe]="item"
           [shoppingState]="getShoppingState(item.sourceId)"

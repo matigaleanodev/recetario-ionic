@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import {
   IonContent,
   IonHeader,
@@ -11,6 +11,7 @@ import {
 import { ShoppingListService } from './services/shopping-list/shopping-list.service';
 import { ShoppingRecipeCardComponent } from './components/shopping-recipe-card/shopping-recipe-card.component';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
+import { ShoppingRecipe } from '@recipes/models/shopping-recipe.model';
 
 @Component({
   selector: 'app-shopping-list',
@@ -25,6 +26,8 @@ export class ShoppingListPage {
 
   readonly shoppingState = computed(() => this._service.shoppingState());
   readonly favoritos = computed(() => this._favorites.favoritos());
+
+  readonly shoppingList = signal<ShoppingRecipe[]>([]);
 
   async ionViewWillEnter() {
     await this._favorites.cargarFavoritos();
