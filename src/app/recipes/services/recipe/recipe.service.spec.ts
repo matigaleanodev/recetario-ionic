@@ -16,10 +16,6 @@ describe('RecipeService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('debería inicializar la receta seleccionada en null', () => {
-    expect(service.selectedRecipe()).toBeNull();
-  });
-
   it('debería generar una lista de recetas', () => {
     const recipes = service.recipes();
 
@@ -36,33 +32,8 @@ describe('RecipeService', () => {
     const recipes = service.recipes();
 
     recipes.forEach((recipe) => {
-      expect(recipe.id).toBeDefined();
+      expect(recipe.sourceId).toBeDefined();
       expect(recipe.title).toBeDefined();
-    });
-  });
-
-  it('debería seleccionar una receta', () => {
-    const recipe = service.recipes()[0];
-
-    service.seleccionarReceta(recipe);
-
-    expect(service.selectedRecipe()).toEqual(recipe);
-  });
-
-  it('no debería modificar la lista de recetas al seleccionar una receta', () => {
-    const recipesBefore = service.recipes();
-    const recipe = recipesBefore[0];
-
-    service.seleccionarReceta(recipe);
-
-    expect(service.recipes()).toBe(recipesBefore);
-  });
-
-  it('las recetas vegetarianas deberían tener la dieta correspondiente', () => {
-    const vegetarianRecipes = service.recipes().filter((r) => r.vegetarian);
-
-    vegetarianRecipes.forEach((recipe) => {
-      expect(recipe.diets).toContain('vegetarian');
     });
   });
 });

@@ -2,17 +2,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecipeCardComponent } from './recipe-card.component';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
-import { RecipeInfo } from '@shared/models/recipe.model';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 
 describe('RecipeCardComponent', () => {
   let component: RecipeCardComponent;
   let fixture: ComponentFixture<RecipeCardComponent>;
 
-  const recipeMock: RecipeInfo = {
-    id: 1,
+  const recipeMock: DailyRecipe = {
+    sourceId: 1,
     title: 'Receta test',
-    imageType: 'jpg',
-  } as RecipeInfo;
+    image: 'jpg',
+  };
 
   const favoritesServiceMock = {
     esFavorito: jasmine.createSpy(),

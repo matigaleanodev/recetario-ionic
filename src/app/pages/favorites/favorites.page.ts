@@ -4,7 +4,6 @@ import { IonContent, IonRow, IonGrid, IonCol } from '@ionic/angular/standalone';
 import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 import { RecipeCardComponent } from '@shared/components/recipe-card/recipe-card.component';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
-import { NavService } from '@shared/services/nav/nav.service';
 import { RecipeService } from '@recipes/services/recipe/recipe.service';
 
 @Component({
@@ -16,7 +15,6 @@ import { RecipeService } from '@recipes/services/recipe/recipe.service';
 })
 export class FavoritesPage {
   private readonly _service = inject(FavoritesService);
-  private readonly _nav = inject(NavService);
   private readonly _recipes = inject(RecipeService);
 
   readonly favoritos = computed(() => this._service.favoritos());

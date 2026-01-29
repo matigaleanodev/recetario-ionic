@@ -1,19 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecipeIngredientsComponent } from './recipe-ingredients.component';
-import { Ingredient } from '@shared/models/recipe.model';
+import { RecipeIngredient } from '@recipes/models/recipe-ingredient.model';
 
 describe('RecipeIngredientsComponent', () => {
   let component: RecipeIngredientsComponent;
   let fixture: ComponentFixture<RecipeIngredientsComponent>;
 
-  const ingredientsMock: Ingredient[] = [
+  const ingredientsMock: RecipeIngredient[] = [
     {
       id: 1,
       name: 'Ingrediente 1',
       amount: 100,
       unit: 'g',
-    } as Ingredient,
+      original: 'ingre1',
+      image: 'img',
+    },
   ];
 
   beforeEach(async () => {

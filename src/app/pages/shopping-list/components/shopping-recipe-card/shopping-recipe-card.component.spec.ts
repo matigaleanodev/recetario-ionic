@@ -1,26 +1,38 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShoppingRecipeCardComponent } from './shopping-recipe-card.component';
 import {
   ShoppingRecipeState,
   ShoppingListService,
 } from '@pages/shopping-list/services/shopping-list/shopping-list.service';
-import { RecipeInfo } from '@shared/models/recipe.model';
+import { ShoppingRecipe } from '@recipes/models/shopping-recipe.model';
 
 describe('ShoppingRecipeCardComponent', () => {
   let component: ShoppingRecipeCardComponent;
   let fixture: ComponentFixture<ShoppingRecipeCardComponent>;
 
-  const recipeMock: RecipeInfo = {
-    id: 1,
+  const recipeMock: ShoppingRecipe = {
+    sourceId: 1,
     title: 'Receta test',
-    extendedIngredients: [
-      { id: 10, name: 'Ingrediente 1' },
-      { id: 20, name: 'Ingrediente 2' },
+    ingredients: [
+      {
+        id: 10,
+        name: 'Ingrediente 1',
+        original: '',
+        amount: 1,
+        unit: '',
+        image: '',
+      },
+      {
+        id: 20,
+        name: 'Ingrediente 2',
+        original: '',
+        amount: 1,
+        unit: '',
+        image: '',
+      },
     ],
-  } as RecipeInfo;
-
+  };
   const shoppingStateMock: ShoppingRecipeState = {
     recipeId: 1,
     checkedIngredientIds: [10],
@@ -59,7 +71,7 @@ describe('ShoppingRecipeCardComponent', () => {
   });
 
   it('debería exponer los ingredientes de la receta', () => {
-    expect(component.ingredients()).toEqual(recipeMock.extendedIngredients);
+    expect(component.ingredients()).toEqual(recipeMock.ingredients);
   });
 
   it('debería consultar si un ingrediente está marcado', () => {
@@ -73,7 +85,7 @@ describe('ShoppingRecipeCardComponent', () => {
   });
 
   it('debería alternar un ingrediente', async () => {
-    await component.toggleIngredient(20);
+    await component.toggleIngredient({} as Event, 20);
 
     expect(shoppingListServiceMock.toggleIngredient).toHaveBeenCalledWith(
       1,

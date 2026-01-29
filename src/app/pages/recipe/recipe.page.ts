@@ -16,7 +16,6 @@ import { RecipeAttrComponent } from './components/recipe-attr/recipe-attr.compon
 import { RecipeMetaExtendedComponent } from './components/recipe-meta-extended/recipe-meta-extended.component';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { NavService } from '@shared/services/nav/nav.service';
-import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 import { RecipeDetail } from '@recipes/models/recipe-detail.model';
 
 @Component({

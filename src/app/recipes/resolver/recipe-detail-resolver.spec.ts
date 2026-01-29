@@ -1,17 +1,71 @@
 import { TestBed } from '@angular/core/testing';
-import { ResolveFn } from '@angular/router';
-
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { of } from 'rxjs';
+import { RecipeService } from '@recipes/services/recipe/recipe.service';
+import { RecipeDetail } from '@recipes/models/recipe-detail.model';
 import { recipeDetailResolver } from './recipe-detail-resolver';
 
 describe('recipeDetailResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 
-      TestBed.runInInjectionContext(() => recipeDetailResolver(...resolverParameters));
+  let recipeService: jasmine.SpyObj<RecipeService>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    recipeService = jasmine.createSpyObj('RecipeService', [
+      'buscarDetalleReceta',
+    ]);
+
+    TestBed.configureTestingModule({
+      providers: [{ provide: RecipeService, useValue: recipeService }],
+    });
   });
 
-  it('should be created', () => {
-    expect(executeResolver).toBeTruthy();
+  it('debería devolver null si no hay id', async () => {
+    const route = {
+      paramMap: new Map(),
+    } as unknown as ActivatedRouteSnapshot;
+
+    const result = await TestBed.runInInjectionContext(() =>
+      recipeDetailResolver(route, {} as RouterStateSnapshot),
+    );
+
+    expect(result).toBeNull();
+  });
+
+  it('debería devolver el detalle de la receta', async () => {
+    const data: RecipeDetail = {
+      sourceId: 1,
+      title: 'Receta',
+      summary: '',
+      instructions: [],
+      ingredients: [],
+      image: '',
+      readyInMinutes: 10,
+      cookingMinutes: 10,
+      servings: 2,
+      vegetarian: false,
+      vegan: false,
+      glutenFree: false,
+      dairyFree: false,
+      preparationMinutes: 0,
+      healthScore: 1,
+      aggregateLikes: 1,
+      sourceName: 'Spoonacular',
+      sourceUrl: 'https://example.com',
+      lang: 'en',
+    };
+
+    recipeService.buscarDetalleReceta.and.returnValue(
+      Promise.resolve(of(data)),
+    );
+
+    const route = {
+      paramMap: new Map([['id', '1']]),
+    } as unknown as ActivatedRouteSnapshot;
+
+    const result = await TestBed.runInInjectionContext(() =>
+      recipeDetailResolver(route, {} as RouterStateSnapshot),
+    );
+
+    expect(recipeService.buscarDetalleReceta).toHaveBeenCalledWith(1);
+    expect(result).toEqual(data);
   });
 });

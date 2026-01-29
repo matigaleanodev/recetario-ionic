@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FavoritesPage } from './favorites.page';
-import { RecipeInfo } from '@shared/models/recipe.model';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { NavService } from '@shared/services/nav/nav.service';
 import { RecipeService } from '@recipes/services/recipe/recipe.service';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 
 describe('FavoritesPage', () => {
   let component: FavoritesPage;
   let fixture: ComponentFixture<FavoritesPage>;
 
-  const recipeMock: RecipeInfo = {
-    id: 1,
+  const recipeMock: DailyRecipe = {
+    sourceId: 1,
     title: 'Receta test',
-  } as RecipeInfo;
+    image: '',
+  };
 
   const favoritesServiceMock = {
     favoritos: jasmine.createSpy(),
@@ -68,7 +69,7 @@ describe('FavoritesPage', () => {
     component.toggleFavorito(recipeMock);
 
     expect(favoritesServiceMock.removerFavorito).toHaveBeenCalledWith(
-      recipeMock,
+      recipeMock.sourceId,
     );
   });
 
@@ -80,23 +81,5 @@ describe('FavoritesPage', () => {
     expect(favoritesServiceMock.agregarFavorito).toHaveBeenCalledWith(
       recipeMock,
     );
-  });
-
-  it('debería navegar a recetas similares', () => {
-    component.recetasSimilares(recipeMock);
-
-    expect(recipeServiceMock.seleccionarReceta).toHaveBeenCalledWith(
-      recipeMock,
-    );
-    expect(navServiceMock.forward).toHaveBeenCalledWith('similares/1');
-  });
-
-  it('debería navegar al detalle de la receta', () => {
-    component.detalleReceta(recipeMock);
-
-    expect(recipeServiceMock.seleccionarReceta).toHaveBeenCalledWith(
-      recipeMock,
-    );
-    expect(navServiceMock.forward).toHaveBeenCalledWith('recipe/1');
   });
 });

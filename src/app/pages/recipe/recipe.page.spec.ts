@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RecipePage } from './recipe.page';
-import { RecipeInfo } from '@shared/models/recipe.model';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { NavService } from '@shared/services/nav/nav.service';
+import { RecipeDetail } from '@recipes/models/recipe-detail.model';
 
 describe('RecipePage', () => {
   let component: RecipePage;
   let fixture: ComponentFixture<RecipePage>;
 
-  const recipeMock: RecipeInfo = {
-    id: 1,
+  const recipeMock: RecipeDetail = {
+    sourceId: 1,
     title: 'Receta test',
-    imageType: 'jpg',
-  } as RecipeInfo;
-
+    image: 'jpg',
+  } as RecipeDetail;
   const favoritesServiceMock = {
     esFavorito: jasmine.createSpy(),
     agregarFavorito: jasmine.createSpy(),
