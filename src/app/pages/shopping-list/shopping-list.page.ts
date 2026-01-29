@@ -1,17 +1,8 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonRow,
-  IonGrid,
-  IonCol,
-} from '@ionic/angular/standalone';
+import { Component, computed, inject } from '@angular/core';
+import { IonContent } from '@ionic/angular/standalone';
 import { ShoppingListService } from './services/shopping-list/shopping-list.service';
 import { ShoppingRecipeCardComponent } from './components/shopping-recipe-card/shopping-recipe-card.component';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
-import { ShoppingRecipe } from '@recipes/models/shopping-recipe.model';
 import { ShoppingRecipesService } from './services/shopping-recipe/shopping-recipe.service';
 import { LoadingService } from '@shared/services/loading/loading.service';
 
@@ -20,7 +11,7 @@ import { LoadingService } from '@shared/services/loading/loading.service';
   templateUrl: './shopping-list.page.html',
   styleUrls: ['./shopping-list.page.scss'],
   standalone: true,
-  imports: [IonCol, IonGrid, IonRow, IonContent, ShoppingRecipeCardComponent],
+  imports: [IonContent, ShoppingRecipeCardComponent],
 })
 export class ShoppingListPage {
   private readonly _state = inject(ShoppingListService);

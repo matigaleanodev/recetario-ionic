@@ -20,7 +20,26 @@
   opacity: 0.9;
 }
 
-ion-grid {
+.masonry {
+  column-count: 3;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .masonry {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .masonry {
+    column-count: 1;
+  }
+}
+
+.masonry > * {
+  break-inside: avoid;
+  margin-bottom: 1rem;
 }
