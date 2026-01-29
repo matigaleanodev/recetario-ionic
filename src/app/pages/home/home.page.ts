@@ -1,13 +1,12 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonCol, IonRow, IonGrid } from '@ionic/angular/standalone';
 import { RecipeCardComponent } from '@shared/components/recipe-card/recipe-card.component';
-import { RecipeInfo } from '@shared/models/recipe.model';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
-import { NavService } from '@shared/services/nav/nav.service';
-import { RecipeService } from '@shared/services/recipe/recipe.service';
+import { RecipeService } from '@recipes/services/recipe/recipe.service';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 
 @Component({
   selector: 'app-home',
@@ -27,32 +26,28 @@ import { HomeHeroComponent } from './components/home-hero/home-hero.component';
 export class HomePage {
   readonly _recipes = inject(RecipeService);
   readonly _favoritos = inject(FavoritesService);
-  readonly _nav = inject(NavService);
 
   readonly recipes = computed(() => this._recipes.recipes());
 
   ionViewWillEnter() {
     this._favoritos.cargarFavoritos();
+    this._recipes.buscarRecetasDiarias();
   }
 
-  toggleFavorito(receta: RecipeInfo) {
-    const esFavorito = this._favoritos.esFavorito(receta);
+  toggleFavorito(receta: DailyRecipe) {
+    const esFavorito = this._favoritos.esFavorito(receta.sourceId);
     if (esFavorito) {
-      this._favoritos.removerFavorito(receta);
+      this._favoritos.removerFavorito(receta.sourceId);
     } else {
       this._favoritos.agregarFavorito(receta);
     }
   }
 
-  recetasSimilares(receta: RecipeInfo) {
-    this._recipes.seleccionarReceta(receta);
-
-    this._nav.forward(`similares/${receta.id}`);
+  recetasSimilares({ sourceId }: DailyRecipe) {
+    this._recipes.recetasSimilares(sourceId);
   }
 
-  detalleReceta(receta: RecipeInfo) {
-    this._recipes.seleccionarReceta(receta);
-
-    this._nav.forward(`recipe/${receta.id}`);
+  detalleReceta({ sourceId }: DailyRecipe) {
+    this._recipes.detalleReceta(sourceId);
   }
 }

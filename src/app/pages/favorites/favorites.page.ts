@@ -1,11 +1,10 @@
 import { Component, computed, inject } from '@angular/core';
 
 import { IonContent, IonRow, IonGrid, IonCol } from '@ionic/angular/standalone';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 import { RecipeCardComponent } from '@shared/components/recipe-card/recipe-card.component';
-import { RecipeInfo } from '@shared/models/recipe.model';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
-import { NavService } from '@shared/services/nav/nav.service';
-import { RecipeService } from '@shared/services/recipe/recipe.service';
+import { RecipeService } from '@recipes/services/recipe/recipe.service';
 
 @Component({
   selector: 'app-favorites',
@@ -16,7 +15,6 @@ import { RecipeService } from '@shared/services/recipe/recipe.service';
 })
 export class FavoritesPage {
   private readonly _service = inject(FavoritesService);
-  private readonly _nav = inject(NavService);
   private readonly _recipes = inject(RecipeService);
 
   readonly favoritos = computed(() => this._service.favoritos());
@@ -25,24 +23,20 @@ export class FavoritesPage {
     this._service.cargarFavoritos();
   }
 
-  toggleFavorito(receta: RecipeInfo) {
-    const esFavorito = this._service.esFavorito(receta);
+  toggleFavorito(receta: DailyRecipe) {
+    const esFavorito = this._service.esFavorito(receta.sourceId);
     if (esFavorito) {
-      this._service.removerFavorito(receta);
+      this._service.removerFavorito(receta.sourceId);
     } else {
       this._service.agregarFavorito(receta);
     }
   }
 
-  recetasSimilares(receta: RecipeInfo) {
-    this._recipes.seleccionarReceta(receta);
-
-    this._nav.forward(`similares/${receta.id}`);
+  recetasSimilares({ sourceId }: DailyRecipe) {
+    this._recipes.recetasSimilares(sourceId);
   }
 
-  detalleReceta(receta: RecipeInfo) {
-    this._recipes.seleccionarReceta(receta);
-
-    this._nav.forward(`recipe/${receta.id}`);
+  detalleReceta({ sourceId }: DailyRecipe) {
+    this._recipes.detalleReceta(sourceId);
   }
 }

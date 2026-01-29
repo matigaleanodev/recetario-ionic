@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ShoppingListService } from './shopping-list.service';
-import { RecipeInfo } from '@shared/models/recipe.model';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { StorageService } from '@shared/services/storage/storage.service';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 
 describe('ShoppingListService', () => {
   let service: ShoppingListService;
 
-  const recipe1: RecipeInfo = { id: 1, title: 'Receta 1' } as RecipeInfo;
-  const recipe2: RecipeInfo = { id: 2, title: 'Receta 2' } as RecipeInfo;
+  const recipe1: DailyRecipe = { sourceId: 1, title: 'Receta 1', image: '' };
+  const recipe2: DailyRecipe = { sourceId: 2, title: 'Receta 2', image: '' };
 
   const storageMock = {
     getItem: jasmine.createSpy(),

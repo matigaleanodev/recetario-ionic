@@ -8,7 +8,6 @@ import {
   IonCol,
   IonRow,
 } from '@ionic/angular/standalone';
-import { RecipeInfo } from '@shared/models/recipe.model';
 import { RecipeMetaComponent } from './components/recipe-meta/recipe-meta.component';
 import { RecipeHeroComponent } from './components/recipe-hero/recipe-hero.component';
 import { RecipeIngredientsComponent } from './components/recipe-ingredients/recipe-ingredients.component';
@@ -17,6 +16,7 @@ import { RecipeAttrComponent } from './components/recipe-attr/recipe-attr.compon
 import { RecipeMetaExtendedComponent } from './components/recipe-meta-extended/recipe-meta-extended.component';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import { NavService } from '@shared/services/nav/nav.service';
+import { RecipeDetail } from '@recipes/models/recipe-detail.model';
 
 @Component({
   selector: 'app-recipe',
@@ -39,7 +39,7 @@ import { NavService } from '@shared/services/nav/nav.service';
   ],
 })
 export class RecipePage {
-  readonly recipe = input.required<RecipeInfo>();
+  readonly recipe = input.required<RecipeDetail>();
 
   private readonly _favoritos = inject(FavoritesService);
   private readonly _nav = inject(NavService);
@@ -48,29 +48,27 @@ export class RecipePage {
     const recipe = this.recipe();
     if (!recipe) return '';
 
-    return (
-      'https://img.spoonacular.com/recipes/' +
-      recipe.id +
-      '-636x393.' +
-      (recipe.imageType || 'jpg')
-    );
+    return recipe.image;
   });
 
-  isFavorite = computed(() => this._favoritos.esFavorito(this.recipe()));
+  isFavorite = computed(() =>
+    this._favoritos.esFavorito(this.recipe().sourceId),
+  );
 
   toggleFavorito() {
     const receta = this.recipe();
-    const esFavorito = this._favoritos.esFavorito(receta);
+    const { sourceId, title, image } = receta;
+    const esFavorito = this._favoritos.esFavorito(sourceId);
     if (esFavorito) {
-      this._favoritos.removerFavorito(receta);
+      this._favoritos.removerFavorito(sourceId);
     } else {
-      this._favoritos.agregarFavorito(receta);
+      this._favoritos.agregarFavorito({ sourceId, title, image });
     }
   }
 
   verSimilares() {
     const receta = this.recipe();
 
-    this._nav.forward(`similares/${receta.id}`);
+    this._nav.forward(`similares/${receta.sourceId}`);
   }
 }

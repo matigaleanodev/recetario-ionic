@@ -1,21 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecipeInstructionsComponent } from './recipe-instructions.component';
-import { AnalyzedInstruction } from '@shared/models/recipe.model';
+import { RecipeInstruction } from '@recipes/models/recipe-instruction.model';
 
 describe('RecipeInstructionsComponent', () => {
   let component: RecipeInstructionsComponent;
   let fixture: ComponentFixture<RecipeInstructionsComponent>;
 
-  const instructionsMock: AnalyzedInstruction[] = [
+  const instructionsMock: RecipeInstruction[] = [
     {
       name: '',
       steps: [
         {
           number: 1,
-          step: 'Paso 1',
-          ingredients: [],
-          equipment: [],
+          text: 'paso 1',
         },
       ],
     },

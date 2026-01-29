@@ -5,16 +5,14 @@
       <p class="subtitle">Lo que necesitás para cocinar hoy</p>
     </div>
   </div>
-  <ion-grid>
-    <ion-row>
-      @for (item of favoritos(); track $index) {
-      <ion-col size="12" sizeSm="6" sizeMd="4" sizeLg="3">
-        <app-shopping-recipe-card
-          [recipe]="item"
-          [shoppingState]="getShoppingState(item.id)"
-        ></app-shopping-recipe-card>
-      </ion-col>
-      }
-    </ion-row>
-  </ion-grid>
+  <div class="masonry">
+    @for (item of shoppingList(); track $index) {
+    <div class="ion-padding-verical">
+      <app-shopping-recipe-card
+        [recipe]="item.recipe"
+        [shoppingState]="item.state"
+      />
+    </div>
+    }
+  </div>
 </ion-content>

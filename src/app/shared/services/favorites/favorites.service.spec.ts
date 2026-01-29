@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
 import { FavoritesService } from './favorites.service';
-import { RecipeInfo } from '@shared/models/recipe.model';
 import { StorageService } from '../storage/storage.service';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 
 describe('FavoritesService', () => {
   let service: FavoritesService;
@@ -12,10 +12,11 @@ describe('FavoritesService', () => {
     setItem: jasmine.createSpy(),
   };
 
-  const recipeMock: RecipeInfo = {
-    id: 1,
+  const recipeMock: DailyRecipe = {
+    sourceId: 1,
     title: 'Receta test',
-  } as RecipeInfo;
+    image: '',
+  } as DailyRecipe;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -65,7 +66,7 @@ describe('FavoritesService', () => {
 
   it('debería remover un favorito', () => {
     service.agregarFavorito(recipeMock);
-    service.removerFavorito(recipeMock);
+    service.removerFavorito(recipeMock.sourceId);
 
     expect(service.favoritos()).toEqual([]);
     expect(storageMock.setItem).toHaveBeenCalledWith('FAVORITOS', []);
@@ -74,13 +75,13 @@ describe('FavoritesService', () => {
   it('debería indicar si una receta es favorita', () => {
     service.agregarFavorito(recipeMock);
 
-    const result = service.esFavorito(recipeMock);
+    const result = service.esFavorito(recipeMock.sourceId);
 
     expect(result).toBeTrue();
   });
 
   it('debería indicar false si la receta no es favorita', () => {
-    const result = service.esFavorito(recipeMock);
+    const result = service.esFavorito(recipeMock.sourceId);
 
     expect(result).toBeFalse();
   });

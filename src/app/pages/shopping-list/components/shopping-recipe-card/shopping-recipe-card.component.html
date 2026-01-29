@@ -10,15 +10,19 @@
     <div class="paper-spacer"></div>
 
     @for (ingredient of ingredients(); track $index) {
-      <ion-item class="paper-line" lines="none">
+      <ion-item
+        class="paper-line"
+        lines="none"
+        (click)="toggleIngredient($event, ingredient.id)"
+      >
         <ion-checkbox
           slot="start"
           [checked]="isIngredientChecked(ingredient.id)"
-          (ionChange)="toggleIngredient(ingredient.id)"
+          (ionChange)="toggleIngredient($event, ingredient.id)"
         ></ion-checkbox>
 
         <ion-label>
-          {{ ingredient.name }}
+          {{ ingredient.name }} ({{ ingredient.amount }} {{ ingredient.unit }})
         </ion-label>
       </ion-item>
     }

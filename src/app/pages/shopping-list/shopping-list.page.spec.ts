@@ -1,20 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingListPage } from './shopping-list.page';
-import { RecipeInfo } from '@shared/models/recipe.model';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
 import {
   ShoppingRecipeState,
   ShoppingListService,
 } from './services/shopping-list/shopping-list.service';
+import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 
 describe('ShoppingListPage', () => {
   let component: ShoppingListPage;
   let fixture: ComponentFixture<ShoppingListPage>;
 
-  const recipeMock: RecipeInfo = {
-    id: 1,
+  const recipeMock: DailyRecipe = {
+    sourceId: 1,
     title: 'Receta test',
-  } as RecipeInfo;
+    image: '',
+  };
 
   const shoppingStateMock: ShoppingRecipeState[] = [
     {
