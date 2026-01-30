@@ -33,4 +33,5 @@ export const enUS: Record<string, string> = {
   xIdioma: 'Language',
   xTema: 'Theme',
   xCargando: 'Loading',
+  xCancelar: 'Cancel',
 };

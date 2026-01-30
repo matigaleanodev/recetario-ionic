@@ -14,6 +14,7 @@ import {
   IonList,
   ActionSheetController,
 } from '@ionic/angular/standalone';
+import { ThemeService } from '@shared/services/theme/theme.service';
 import { Language } from '@shared/translate/language.model';
 import { TranslatePipe } from '@shared/translate/translate-pipe';
 import { TranslateService } from '@shared/translate/translate.service';
@@ -51,11 +52,19 @@ import {
 })
 export class MenuComponent {
   private readonly translate = inject(TranslateService);
+  private readonly theme = inject(ThemeService);
   private readonly actionSheetCtrl = inject(ActionSheetController);
 
   readonly currentLang = computed(() =>
     this.translate.currentLang() === Language.ES ? 'ES' : 'EN',
   );
+
+  readonly currentTheme = computed(() => {
+    const theme = this.theme.currentTheme();
+    if (theme === 'dark') return this.translate.translate('xOscuro');
+    if (theme === 'light') return this.translate.translate('xClaro');
+    return this.translate.translate('xSistema');
+  });
 
   constructor() {
     addIcons({
@@ -82,6 +91,35 @@ export class MenuComponent {
         {
           text: 'English',
           handler: () => this.translate.setLanguage(Language.EN),
+        },
+        {
+          text: this.translate.translate('xCancelar'),
+          role: 'cancel',
+        },
+      ],
+    });
+
+    await sheet.present();
+  }
+
+  async openThemeSelector() {
+    const sheet = await this.actionSheetCtrl.create({
+      header: this.translate.translate('xTema'),
+      buttons: [
+        {
+          text: this.translate.translate('xClaro'),
+          icon: sunnyOutline,
+          handler: () => this.theme.setTheme('light'),
+        },
+        {
+          text: this.translate.translate('xOscuro'),
+          icon: moonOutline,
+          handler: () => this.theme.setTheme('dark'),
+        },
+        {
+          text: this.translate.translate('xSistema'),
+          icon: phonePortraitOutline,
+          handler: () => this.theme.setTheme('system'),
         },
         {
           text: this.translate.translate('xCancelar'),
