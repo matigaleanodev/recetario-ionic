@@ -1,5 +1,3 @@
-export interface SimilarRecipe {
-  id: number;
-  title: string;
-  image: string;
-}
+import { DailyRecipe } from './daily-recipe.model';
+
+export type SimilarRecipe = DailyRecipe;

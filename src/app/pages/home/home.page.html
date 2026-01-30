@@ -7,9 +7,9 @@
       <ion-col size="12" sizeSm="6" sizeMd="4" sizeLg="3">
         <app-recipe-card
           [recipe]="recipe"
-          (favorito)="toggleFavorito($event)"
-          (similares)="recetasSimilares($event)"
-          (seleccionar)="detalleReceta($event)"
+          (toggleFavorite)="toggleFavorite($event)"
+          (similarRecipes)="toSimilarRecipes($event)"
+          (recipeDetail)="toRecipeDetail($event)"
         />
       </ion-col>
       }

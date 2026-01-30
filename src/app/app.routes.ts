@@ -20,7 +20,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('@pages/similar/similar.page').then((m) => m.SimilarPage),
     resolve: {
-      recipe: similarRecipesResolver,
+      recipes: similarRecipesResolver,
     },
   },
   {
