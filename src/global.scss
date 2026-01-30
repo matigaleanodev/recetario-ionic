@@ -112,3 +112,20 @@ ion-toast {
     opacity: 0.9;
   }
 }
+
+ion-header.overlay-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  --background: transparent;
+  box-shadow: none;
+}
+
+ion-header.overlay-header ion-toolbar {
+  --background: transparent;
+  box-shadow: none;
+  --border-width: 0;
+}
