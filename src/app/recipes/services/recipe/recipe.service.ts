@@ -44,6 +44,18 @@ export class RecipeService {
       .pipe(finalize(() => loading.dismiss()));
   }
 
+  async queryReacipeSearch(query: string) {
+    const loading = await this._loading.show();
+
+    return this._api
+      .getRecipesByQuery(query)
+      .pipe(finalize(() => loading.dismiss()));
+  }
+
+  searchRecipes(query: string) {
+    this._nav.search(query);
+  }
+
   selectRecipe(recipe: DailyRecipe) {
     this.recipeSelected.set(recipe);
   }

@@ -51,4 +51,8 @@ export class HomePage {
   toRecipeDetail({ sourceId }: DailyRecipe) {
     this._recipes.toRecipeDetail(sourceId);
   }
+
+  toSearchRecipe(query: string) {
+    this._recipes.searchRecipes(query);
+  }
 }
