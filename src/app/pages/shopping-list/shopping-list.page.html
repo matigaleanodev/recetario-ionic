@@ -24,15 +24,18 @@
       <app-shopping-recipe-card
         [recipe]="item.recipe"
         [shoppingState]="item.state"
+        (toRecipe)="toRecipeDetail($event)"
       />
     </div>
     } @empty {
-    <ion-col>
-      <app-empty-states
-        imagen="shoplist"
-        text="xGuardeFavoritosParaListaCompras"
-      />
-    </ion-col>
+    <ion-row>
+      <ion-col size="12">
+        <app-empty-states
+          imagen="shoplist"
+          text="xGuardeFavoritosParaListaCompras"
+        />
+      </ion-col>
+    </ion-row>
     }
   </div>
 </ion-content>

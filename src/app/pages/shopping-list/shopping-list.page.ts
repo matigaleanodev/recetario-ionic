@@ -10,6 +10,7 @@ import {
   RefresherCustomEvent,
   IonRefresher,
   IonRefresherContent,
+  IonRow,
 } from '@ionic/angular/standalone';
 import { ShoppingListService } from './services/shopping-list/shopping-list.service';
 import { ShoppingRecipeCardComponent } from './components/shopping-recipe-card/shopping-recipe-card.component';
@@ -21,6 +22,8 @@ import { EmptyStatesComponent } from '@shared/components/empty-states/empty-stat
 import { TranslateService } from '@shared/translate/translate.service';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { skip, switchMap } from 'rxjs';
+import { ShoppingRecipe } from '@recipes/models/shopping-recipe.model';
+import { RecipeService } from '@recipes/services/recipe/recipe.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -28,6 +31,7 @@ import { skip, switchMap } from 'rxjs';
   styleUrls: ['./shopping-list.page.scss'],
   standalone: true,
   imports: [
+    IonRow,
     IonRefresherContent,
     IonRefresher,
     IonCol,
@@ -45,7 +49,8 @@ import { skip, switchMap } from 'rxjs';
 export class ShoppingListPage implements OnInit {
   private readonly _state = inject(ShoppingListService);
   private readonly _favorites = inject(FavoritesService);
-  private readonly _recipes = inject(ShoppingRecipesService);
+  private readonly _shopping = inject(ShoppingRecipesService);
+  private readonly _recipes = inject(RecipeService);
   private readonly _loading = inject(LoadingService);
   private readonly _translate = inject(TranslateService);
 
@@ -57,7 +62,7 @@ export class ShoppingListPage implements OnInit {
   readonly shoppingState = computed(() => this._state.shoppingState());
   readonly favoritos = computed(() => this._favorites.favorites());
 
-  readonly shoppingRecipes = computed(() => this._recipes.recipes());
+  readonly shoppingRecipes = computed(() => this._shopping.recipes());
 
   readonly shoppingList = computed(() =>
     this.shoppingRecipes().map((recipe) => ({
@@ -71,7 +76,7 @@ export class ShoppingListPage implements OnInit {
       .pipe(
         skip(1),
         takeUntilDestroyed(this.destroyRef),
-        switchMap(() => this._recipes.refreshSync(true)),
+        switchMap(() => this._shopping.refreshSync(true)),
       )
       .subscribe();
   }
@@ -82,7 +87,7 @@ export class ShoppingListPage implements OnInit {
     try {
       await this._favorites.loadFavorites();
       await this._state.init();
-      await this._recipes.sync();
+      await this._shopping.sync();
     } finally {
       loading.dismiss();
     }
@@ -91,7 +96,7 @@ export class ShoppingListPage implements OnInit {
   onRefresh(event: RefresherCustomEvent) {
     this._favorites.loadFavorites().then(() => {
       this._state.init();
-      this._recipes.refreshSync().subscribe({
+      this._shopping.refreshSync().subscribe({
         next: () => {
           event.target.complete();
         },
@@ -104,5 +109,11 @@ export class ShoppingListPage implements OnInit {
 
   getShoppingState(recipeId: number) {
     return this.shoppingState().find((s) => s.recipeId === recipeId)!;
+  }
+
+  toRecipeDetail(recipe: ShoppingRecipe) {
+    this._recipes.selectRecipe({ ...recipe, image: '' });
+
+    this._recipes.toRecipeDetail(recipe.sourceId);
   }
 }

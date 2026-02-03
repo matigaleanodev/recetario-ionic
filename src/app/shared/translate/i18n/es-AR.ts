@@ -41,4 +41,6 @@ export const esAR: Record<string, string> = {
   xSinRecetasDisponibles: 'No encontramos recetas para mostrar en este momento',
   xGuardeFavoritosParaListaCompras:
     'Guardá algunas recetas en favoritos para armar tu lista de compras',
+  xMarcaIngredientes: 'Marcá los ingredientes que ya tenés',
+  xVerReceta: 'Ver receta',
 };
