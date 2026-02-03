@@ -35,7 +35,7 @@ export class ShoppingRecipesService {
     }
   }
 
-  refreshSync() {
+  refreshSync(force = false) {
     const favoritos = this.favorites.favorites();
     const ids = favoritos.map((f) => f.sourceId);
 
@@ -43,16 +43,19 @@ export class ShoppingRecipesService {
     const currentIds = current.map((r) => r.sourceId);
 
     const filtrados = current.filter((r) => ids.includes(r.sourceId));
-    const nuevosIds = ids.filter((id) => !currentIds.includes(id));
 
-    if (!nuevosIds.length) {
+    const nuevosIds = force
+      ? ids
+      : ids.filter((id) => !currentIds.includes(id));
+
+    if (!nuevosIds.length && !force) {
       this.recipes.set(filtrados);
       return of(filtrados);
     }
 
     return this.api.getIngredientsForRecipes(nuevosIds).pipe(
       map((nuevas) => {
-        const result = [...filtrados, ...nuevas];
+        const result = force ? nuevas : [...filtrados, ...nuevas];
         this.recipes.set(result);
         return result;
       }),

@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit } from '@angular/core';
 import {
   IonContent,
   IonButtons,
@@ -18,6 +18,9 @@ import { ShoppingRecipesService } from './services/shopping-recipe/shopping-reci
 import { LoadingService } from '@shared/services/loading/loading.service';
 import { TranslatePipe } from '@shared/translate/translate-pipe';
 import { EmptyStatesComponent } from '@shared/components/empty-states/empty-states.component';
+import { TranslateService } from '@shared/translate/translate.service';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { skip, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list',
@@ -39,11 +42,17 @@ import { EmptyStatesComponent } from '@shared/components/empty-states/empty-stat
     EmptyStatesComponent,
   ],
 })
-export class ShoppingListPage {
+export class ShoppingListPage implements OnInit {
   private readonly _state = inject(ShoppingListService);
   private readonly _favorites = inject(FavoritesService);
   private readonly _recipes = inject(ShoppingRecipesService);
   private readonly _loading = inject(LoadingService);
+  private readonly _translate = inject(TranslateService);
+
+  readonly currentLang = computed(() => this._translate.currentLang());
+
+  readonly currentLang$ = toObservable(this.currentLang);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly shoppingState = computed(() => this._state.shoppingState());
   readonly favoritos = computed(() => this._favorites.favorites());
@@ -56,6 +65,16 @@ export class ShoppingListPage {
       state: this.getShoppingState(recipe.sourceId),
     })),
   );
+
+  ngOnInit() {
+    this.currentLang$
+      .pipe(
+        skip(1),
+        takeUntilDestroyed(this.destroyRef),
+        switchMap(() => this._recipes.refreshSync(true)),
+      )
+      .subscribe();
+  }
 
   async ionViewWillEnter() {
     const loading = await this._loading.show();
