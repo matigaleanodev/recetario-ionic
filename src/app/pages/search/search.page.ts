@@ -1,12 +1,11 @@
+import { Component, inject, input, linkedSignal } from '@angular/core';
 import {
-  Component,
-  computed,
-  inject,
-  input,
-  linkedSignal,
-  OnInit,
-} from '@angular/core';
-import { IonContent, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
+  IonContent,
+  IonGrid,
+  IonRow,
+  IonCol,
+  RefresherCustomEvent,
+} from '@ionic/angular/standalone';
 import { HomeHeroComponent } from '@pages/home/components/home-hero/home-hero.component';
 import { DailyRecipe } from '@recipes/models/daily-recipe.model';
 import { SearchRecipe } from '@recipes/models/search-recipe.model';
@@ -31,9 +30,9 @@ import { FavoritesService } from '@shared/services/favorites/favorites.service';
   ],
 })
 export class SearchPage {
-  readonly initialList = input<SearchRecipe[]>();
+  readonly data = input<SearchRecipe[]>();
 
-  readonly recipes = linkedSignal(() => this.initialList());
+  readonly recipes = linkedSignal(() => this.data());
 
   readonly _recipes = inject(RecipeService);
   readonly _favorites = inject(FavoritesService);

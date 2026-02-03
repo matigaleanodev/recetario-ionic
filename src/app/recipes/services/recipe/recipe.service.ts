@@ -61,6 +61,18 @@ export class RecipeService {
     );
   }
 
+  refreshSimilarRecipes(sourceId: number) {
+    return this._api.getSimilarRecipes(sourceId);
+  }
+
+  refreshRecipeDetail(sourceId: number) {
+    return this._api.getRecipeDetail(sourceId);
+  }
+
+  refreshSearch(query: string) {
+    return this._api.getRecipesByQuery(query);
+  }
+
   searchRecipes(query: string) {
     this._nav.search(query);
   }

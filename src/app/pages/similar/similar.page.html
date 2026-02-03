@@ -9,6 +9,9 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content />
+  </ion-refresher>
   <div class="similar-header gradient-header">
     <div class="similar-header-inner">
       <h1>{{'xRecetasSimilares' | translate}}</h1>
