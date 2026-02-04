@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.matiasgaleano.foodly-notes',
+  appId: 'io.matiasgaleano.foodlynotes',
   appName: 'Foodly Notes',
   webDir: 'www',
 };
