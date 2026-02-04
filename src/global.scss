@@ -87,11 +87,6 @@ ion-toast {
   }
 }
 
-.safe-area-top {
-  padding-top: env(safe-area-inset-top) !important;
-  --padding-top: env(safe-area-inset-top) !important;
-}
-
 h1 {
   margin: 0;
 
@@ -99,6 +94,18 @@ h1 {
   font-weight: 800;
   line-height: 1.2;
   font-family: var(--ion-font-family-secondary);
+}
+
+ion-header {
+  box-shadow: none !important;
+}
+
+.foodly-notes-gradient {
+  --background: linear-gradient(
+    315deg,
+    var(--ion-color-secondary),
+    var(--ion-color-primary)
+  );
 }
 
 .gradient-header {
@@ -119,53 +126,4 @@ h1 {
     line-height: 1.4;
     opacity: 0.9;
   }
-}
-
-ion-header.overlay-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-
-  --background: transparent;
-  box-shadow: none;
-}
-
-ion-header.overlay-header ion-toolbar {
-  --background: transparent;
-  box-shadow: none;
-  --border-width: 0;
-}
-
-@media (min-width: 992px) {
-  ion-header.overlay-header ion-toolbar {
-    --padding-end: 1rem;
-  }
-}
-
-.app-tooltip {
-  position: fixed;
-  transform: translate(-50%, -100%);
-
-  padding: 0.75rem;
-  border-radius: 6px;
-
-  font-size: 0.75rem;
-  line-height: 1.2;
-
-  background: rgba(0, 0, 0, 0.85);
-  color: #fff;
-
-  pointer-events: none;
-  z-index: 1000;
-
-  width: max-content;
-  max-width: 450px;
-
-  text-align: center;
-
-  white-space: normal;
-  word-break: keep-all;
-  overflow-wrap: break-word;
 }

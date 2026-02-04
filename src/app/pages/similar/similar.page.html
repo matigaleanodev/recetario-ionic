@@ -1,5 +1,5 @@
-<ion-header class="overlay-header">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar class="foodly-notes-gradient">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home" color="light" />
     </ion-buttons>
@@ -12,7 +12,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
     <ion-refresher-content />
   </ion-refresher>
-  <div class="similar-header gradient-header safe-area-top">
+  <div class="similar-header gradient-header">
     <div class="similar-header-inner">
       <h1>{{'xRecetasSimilares' | translate}}</h1>
       <p>{{ subtitle() }}</p>

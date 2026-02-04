@@ -9,6 +9,10 @@ import {
   IonRefresher,
   IonRefresherContent,
   RefresherCustomEvent,
+  IonHeader,
+  IonToolbar,
+  IonButtons,
+  IonMenuButton,
 } from '@ionic/angular/standalone';
 import { RecipeCardComponent } from '@shared/components/recipe-card/recipe-card.component';
 import { FavoritesService } from '@shared/services/favorites/favorites.service';
@@ -23,6 +27,10 @@ import { EmptyStatesComponent } from '@shared/components/empty-states/empty-stat
   styleUrls: ['./home.page.scss'],
   standalone: true,
   imports: [
+    IonMenuButton,
+    IonButtons,
+    IonToolbar,
+    IonHeader,
     IonRefresherContent,
     IonRefresher,
     IonGrid,
