@@ -5,14 +5,16 @@ import { environment } from '@env/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AppInfoService {
-  private readonly isNative = Capacitor.isNativePlatform();
-
   readonly appStage = signal(environment.appStage);
 
   async getAppVersion(): Promise<string> {
-    if (this.isNative) {
-      const info = await App.getInfo();
-      return info.version;
+    if (Capacitor.isNativePlatform()) {
+      try {
+        const info = await App.getInfo();
+        return info.version;
+      } catch {
+        return environment.appVersion;
+      }
     }
 
     return environment.appVersion;
