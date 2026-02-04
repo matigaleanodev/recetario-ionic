@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, resource } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   IonContent,
@@ -26,7 +26,7 @@ import {
   nutritionOutline,
   shieldCheckmarkOutline,
 } from 'ionicons/icons';
-
+import { AppInfoService } from './service/app-info.service';
 @Component({
   selector: 'app-info',
   templateUrl: './info.page.html',
@@ -50,6 +50,14 @@ import {
   ],
 })
 export class InfoPage {
+  private readonly _service = inject(AppInfoService);
+
+  readonly appVersion = resource({
+    loader: () => this._service.getAppVersion(),
+  });
+
+  readonly appStage = computed(() => this._service.appStage());
+
   readonly helpUrl = 'https://github.com/matigaleanodev/foodly-notes/issues';
   readonly githubUrl = 'https://github.com/matigaleanodev';
   readonly linkedinUrl = 'https://www.linkedin.com/in/matias-galeano';

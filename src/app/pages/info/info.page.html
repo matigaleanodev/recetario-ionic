@@ -12,7 +12,10 @@
   <div class="info-hero gradient-header">
     <div class="info-hero-inner">
       <h1>{{'xFloodyNotes' | translate}}</h1>
-      <p>{{'xVersion' |translate}} 0.1.0 · {{'xDesarrollo' |translate}}</p>
+      <p>
+        {{ 'xVersion' |translate }} {{ appVersion.value() }} · {{ appStage() |
+        translate }}
+      </p>
     </div>
   </div>
 
@@ -86,7 +89,7 @@
         <ion-icon name="information-circle-outline" slot="start"></ion-icon>
         <ion-label>
           <p>{{'xVersion' | translate}}</p>
-          <h3>0.1.0</h3>
+          <h3>{{ appVersion.value() }}</h3>
         </ion-label>
       </ion-item>
 
@@ -94,7 +97,7 @@
         <ion-icon name="construct-outline" slot="start"></ion-icon>
         <ion-label>
           <p>{{'xEntorno' | translate}}</p>
-          <h3>{{'xDesarrollo' | translate}}</h3>
+          <h3>{{appStage() | translate}}</h3>
         </ion-label>
       </ion-item>
     </ion-list>
