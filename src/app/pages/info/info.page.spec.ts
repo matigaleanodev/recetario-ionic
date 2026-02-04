@@ -1,7 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InfoPage } from './info.page';
-import { IonicStorageMock } from '@shared/mocks/ionic-storage.mock';
 import { Storage } from '@ionic/storage-angular';
+import { IonicStorageMock } from '@shared/mocks/ionic-storage.mock';
+import { AppInfoService } from './service/app-info.service';
+import { signal } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+export const AppInfoServiceMock = {
+  getAppVersion: jasmine.createSpy().and.resolveTo('TEST_VERSION'),
+  appStage: signal('TEST_STAGE'),
+};
 
 describe('InfoPage', () => {
   let component: InfoPage;
@@ -10,7 +18,11 @@ describe('InfoPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [InfoPage],
-      providers: [{ provide: Storage, useValue: IonicStorageMock }],
+      providers: [
+        provideRouter([]),
+        { provide: Storage, useValue: IonicStorageMock },
+        { provide: AppInfoService, useValue: AppInfoServiceMock },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(InfoPage);
@@ -22,10 +34,12 @@ describe('InfoPage', () => {
     expect(component).toBeTruthy();
   });
 
+  it('debería exponer el stage proveniente del servicio', () => {
+    expect(component.appStage()).toBe('TEST_STAGE');
+  });
+
   it('debería exponer las URLs configuradas', () => {
     expect(component.githubUrl).toContain('github.com');
     expect(component.helpUrl).toContain('github.com');
-    expect(component.privacyUrl).toContain('privacy');
-    expect(component.termsUrl).toContain('terms');
   });
 });

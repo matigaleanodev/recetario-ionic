@@ -1,4 +1,4 @@
-export const esAR: Record<string, string> = {
+export const esAR: Record<string, string | any> = {
   xFavoritos: 'Favoritos',
   xFavoritosSubitulo: 'Recetas que marcaste como favoritas',
   xFloodyNotes: 'Foodly Notes',
@@ -51,4 +51,59 @@ export const esAR: Record<string, string> = {
   xAgregarFavorito: 'Agregar a favoritos',
   xVerSimilares: 'Ver recetas similares',
   xToggleFavorito: 'Marcar o quitar de favoritos',
+  xSinFavoritos: 'No hay favoritos',
+  xTooltipTest: 'Tooltip de prueba',
+  xNoKey: 'Texto sin traducción',
+  xVersionEstable: 'Versión estable',
+
+  xTermsTitle: 'Términos y condiciones',
+  xTermsIntroTitle: 'Introducción',
+  xTermsIntroDescription:
+    'Estos términos y condiciones regulan el uso de la aplicación Foodly Notes. Al utilizar la aplicación, aceptás cumplir con estos términos.',
+  xTermsAcceptanceTitle: 'Aceptación de los términos',
+  xTermsAcceptanceDescription:
+    'Al acceder o utilizar Foodly Notes, confirmás que leíste, entendiste y aceptás estos términos y condiciones.',
+  xTermsUseTitle: 'Uso de la aplicación',
+  xTermsUseItem1: 'Foodly Notes es una aplicación destinada a uso personal.',
+  xTermsUseItem2:
+    'No está permitido utilizar la aplicación con fines ilegales o no autorizados.',
+  xTermsUseItem3:
+    'El uso indebido de la aplicación puede resultar en la suspensión del acceso.',
+  xTermsContentTitle: 'Contenido',
+  xTermsContentDescription:
+    'La información y las recetas mostradas en la aplicación se proporcionan con fines informativos y no garantizan resultados específicos.',
+  xTermsLiabilityTitle: 'Limitación de responsabilidad',
+  xTermsLiabilityDescription:
+    'Foodly Notes no se responsabiliza por daños directos o indirectos derivados del uso de la aplicación.',
+  xTermsModificationsTitle: 'Modificaciones',
+  xTermsModificationsDescription:
+    'Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios serán efectivos una vez publicados.',
+  xTermsContactTitle: 'Contacto',
+  xTermsContactDescription:
+    'Si tenés dudas sobre estos términos, podés contactarnos a través de los medios disponibles en la aplicación.',
+
+  xPrivacyTitle: 'Política de privacidad',
+  xPrivacyIntroTitle: 'Introducción',
+  xPrivacyIntroDescription:
+    'En Foodly Notes valoramos tu privacidad. Esta política explica cómo se maneja la información dentro de la aplicación.',
+  xPrivacyDataTitle: 'Información que se recopila',
+  xPrivacyDataItem1: 'Preferencias del usuario dentro de la aplicación.',
+  xPrivacyDataItem2: 'Recetas guardadas y marcadas como favoritas.',
+  xPrivacyDataItem3:
+    'Información técnica básica para el correcto funcionamiento de la app.',
+  xPrivacyUsageTitle: 'Uso de la información',
+  xPrivacyUsageDescription:
+    'La información recopilada se utiliza únicamente para mejorar la experiencia del usuario y el funcionamiento de Foodly Notes.',
+  xPrivacyStorageTitle: 'Almacenamiento de datos',
+  xPrivacyStorageDescription:
+    'Los datos pueden almacenarse de forma local en el dispositivo o en servicios seguros utilizados por la aplicación.',
+  xPrivacyThirdPartyTitle: 'Servicios de terceros',
+  xPrivacyThirdPartyDescription:
+    'Foodly Notes puede utilizar servicios de terceros para funcionalidades específicas. Estos servicios cumplen con sus propias políticas de privacidad.',
+  xPrivacyChangesTitle: 'Cambios en esta política',
+  xPrivacyChangesDescription:
+    'Esta política de privacidad puede actualizarse ocasionalmente. Los cambios serán publicados dentro de la aplicación.',
+  xPrivacyContactTitle: 'Contacto',
+  xPrivacyContactDescription:
+    'Si tenés preguntas sobre esta política de privacidad, podés contactarnos a través de los medios disponibles en la aplicación.',
 };
