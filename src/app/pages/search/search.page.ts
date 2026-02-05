@@ -5,6 +5,11 @@ import {
   IonRow,
   IonCol,
   IonFooter,
+  IonHeader,
+  IonButtons,
+  IonBackButton,
+  IonToolbar,
+  IonMenuButton,
 } from '@ionic/angular/standalone';
 import { HomeHeroComponent } from '@pages/home/components/home-hero/home-hero.component';
 import { DailyRecipe } from '@recipes/models/daily-recipe.model';
@@ -20,6 +25,11 @@ import { FavoritesService } from '@shared/services/favorites/favorites.service';
   styleUrls: ['./search.page.scss'],
   standalone: true,
   imports: [
+    IonMenuButton,
+    IonToolbar,
+    IonBackButton,
+    IonButtons,
+    IonHeader,
     IonFooter,
     IonCol,
     IonRow,

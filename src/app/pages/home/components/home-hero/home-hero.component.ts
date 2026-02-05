@@ -1,30 +1,14 @@
 import { Component, input, output, signal } from '@angular/core';
-import {
-  IonMenuButton,
-  IonHeader,
-  IonToolbar,
-  IonButtons,
-  IonSearchbar,
-  IonBackButton,
-} from '@ionic/angular/standalone';
+import { IonSearchbar } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@shared/translate/translate-pipe';
 
 @Component({
   selector: 'app-home-hero',
-  imports: [
-    IonBackButton,
-    IonSearchbar,
-    IonButtons,
-    IonToolbar,
-    IonHeader,
-    IonMenuButton,
-    TranslatePipe,
-  ],
+  imports: [IonSearchbar, TranslatePipe],
   templateUrl: './home-hero.component.html',
   styleUrls: ['./home-hero.component.scss'],
 })
 export class HomeHeroComponent {
-  readonly searchPage = input<boolean>(false);
   readonly onSearch = output<string>();
 
   readonly query = signal('');

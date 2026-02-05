@@ -1,5 +1,15 @@
+<ion-header>
+  <ion-toolbar class="foodly-notes-gradient">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" color="light" />
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button color="light" />
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <app-home-hero (onSearch)="searchNewRecipes($event)" [searchPage]="true" />
+  <app-home-hero (onSearch)="searchNewRecipes($event)" />
 
   <ion-grid>
     <ion-row>
