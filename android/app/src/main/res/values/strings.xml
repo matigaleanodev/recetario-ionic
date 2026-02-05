@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Foodly Notes</string>
+    <string name="title_activity_main">Foodly Notes</string>
+    <string name="package_name">io.matiasgaleano.foodlynotes</string>
+    <string name="custom_url_scheme">io.matiasgaleano.foodlynotes</string>
+</resources>

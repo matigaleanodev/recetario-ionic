@@ -102,9 +102,8 @@ ion-header {
 
 .foodly-notes-gradient {
   --background: linear-gradient(
-    315deg,
-    var(--ion-color-secondary),
-    var(--ion-color-primary)
+    90deg,
+    var(--ion-color-primary) var(--ion-color-secondary)
   );
 }
 
@@ -112,7 +111,7 @@ ion-header {
   padding: 2.5rem 1.25rem 2rem;
 
   background: linear-gradient(
-    135deg,
+    90deg,
     var(--ion-color-primary),
     var(--ion-color-secondary)
   );
