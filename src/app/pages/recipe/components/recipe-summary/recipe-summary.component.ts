@@ -3,7 +3,6 @@ import {
   computed,
   inject,
   input,
-  OnInit,
   SecurityContext,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -40,14 +39,12 @@ export class RecipeSummaryComponent {
       const href = anchor.getAttribute('href');
       if (!href) return;
 
-      // Spoonacular URLs terminan siempre en "-<id>"
       const match = href.match(/-(\d+)$/);
       if (!match) return;
 
       const recipeId = match[1];
 
       anchor.setAttribute('href', `/recipe/${recipeId}`);
-      anchor.setAttribute('data-internal', 'true');
     });
 
     return doc.body.innerHTML;
@@ -55,14 +52,12 @@ export class RecipeSummaryComponent {
 
   onSummaryClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    const anchor = target.closest(
-      'a[data-internal]',
-    ) as HTMLAnchorElement | null;
+    const anchor = target.closest('a') as HTMLAnchorElement | null;
 
     if (!anchor) return;
 
     const href = anchor.getAttribute('href');
-    if (!href) return;
+    if (!href || !href.startsWith('/recipe/')) return;
 
     event.preventDefault();
     this._nav.forward(href);
