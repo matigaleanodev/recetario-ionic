@@ -59,7 +59,7 @@ export class InfoPage {
   readonly appStage = computed(() => this._service.appStage());
 
   readonly helpUrl = 'https://github.com/matigaleanodev/foodly-notes/issues';
-  readonly githubUrl = 'https://github.com/matigaleanodev';
+  readonly githubUrl = 'https://github.com/matigaleanodev/foodly-notes';
   readonly linkedinUrl = 'https://www.linkedin.com/in/matias-galeano';
   readonly contactEmail = 'contacto@foodlynotes.app';
   readonly spoonacularUrl = 'https://spoonacular.com/food-api';
