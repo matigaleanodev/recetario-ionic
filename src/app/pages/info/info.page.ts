@@ -61,7 +61,7 @@ export class InfoPage {
   readonly helpUrl = 'https://github.com/matigaleanodev/foodly-notes/issues';
   readonly githubUrl = 'https://github.com/matigaleanodev';
   readonly linkedinUrl = 'https://www.linkedin.com/in/matias-galeano';
-  readonly contactEmail = 'contacto@matiasgaleano.com.ar';
+  readonly contactEmail = 'contacto@foodlynotes.app';
   readonly spoonacularUrl = 'https://spoonacular.com/food-api';
 
   constructor() {

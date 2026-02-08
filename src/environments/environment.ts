@@ -1,5 +1,5 @@
 export const environment = {
-  API_URL: 'https://foodly-notes-api.onrender.com/api',
-  appVersion: '0.1.0',
+  API_URL: 'https://api.foodlynotes.app/api',
+  appVersion: '1.0.5',
   appStage: 'xVersionEstable',
 };

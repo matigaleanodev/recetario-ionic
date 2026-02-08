@@ -10,6 +10,8 @@ export class NavService {
   forward(path: string, queryParams?: Record<string, any>) {
     this._navController.navigateForward(path, {
       queryParams,
+      animated: true,
+      animationDirection: 'forward',
     });
   }
 
