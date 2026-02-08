@@ -10,6 +10,7 @@
   );
   color: #fff;
   padding: 1.25rem;
+  padding-top: calc(1.25rem + env(safe-area-inset-top));
 }
 
 .menu-header-inner {
