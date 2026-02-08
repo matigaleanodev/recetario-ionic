@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/images/floodly_notes_icon_green.png" alt="Foodly Notes" width="200" />
+  <img src="src/assets/images/foodly_notes_solid_green.png" alt="Foodly Notes" width="200" />
 </p>
 
 # Foodly Notes – Frontend

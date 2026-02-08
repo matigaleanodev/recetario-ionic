@@ -44,16 +44,26 @@ export class RecipeCardComponent {
 
   readonly recipeImageUrl = computed(() => {
     const recipe = this.recipe();
-    if (!recipe) return '';
+
+    if (!recipe?.image) {
+      return this.fallbackImage;
+    }
 
     return recipe.image;
   });
+
+  private readonly fallbackImage = 'assets/images/foodly_notes_solid_green.png';
 
   constructor() {
     addIcons({
       heart,
       repeat,
     });
+  }
+
+  onImageError(event: Event): void {
+    const img = event.target as HTMLIonImgElement;
+    img.src = this.fallbackImage;
   }
 
   toRecipeDetail(ev: Event) {
