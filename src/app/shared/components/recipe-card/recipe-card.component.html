@@ -16,7 +16,7 @@
         <ion-button
           fill="solid"
           shape="round"
-          color="primary"
+          color="secondary"
           class="recipe-card-action"
           (click)="toSimilarRecipes($event)"
           appTooltip
@@ -31,7 +31,8 @@
   <ion-img
     class="recipe-card-image"
     [src]="recipeImageUrl()"
-    alt="{{ recipe().title }}"
+    [alt]="recipe().title"
+    (ionError)="onImageError($event)"
   ></ion-img>
 
   <div class="recipe-card-title-container">

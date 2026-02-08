@@ -1,7 +1,7 @@
 export const esAR: Record<string, string | any> = {
   xFavoritos: 'Favoritos',
   xFavoritosSubitulo: 'Recetas que marcaste como favoritas',
-  xFloodyNotes: 'Foodly Notes',
+  xFoodlyNotes: 'Foodly Notes',
   xHomeHeroSubtitulo: 'Guardá, descubrí y organizá tus recetas favoritas',
   xVersion: 'Versión',
   xDesarrollo: 'Desarrollo',

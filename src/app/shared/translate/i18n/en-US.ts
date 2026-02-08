@@ -1,7 +1,7 @@
 export const enUS: Record<string, string> = {
   xFavoritos: 'Favorites',
   xFavoritosSubitulo: 'Recipes you marked as favorites',
-  xFloodyNotes: 'Foodly Notes',
+  xFoodlyNotes: 'Foodly Notes',
   xHomeHeroSubtitulo: 'Save, discover and organize your favorite recipes',
   xVersion: 'Version',
   xDesarrollo: 'Development',
