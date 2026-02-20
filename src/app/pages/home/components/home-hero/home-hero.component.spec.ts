@@ -40,20 +40,20 @@ describe('HomeHeroComponent', () => {
   });
 
   it('no debería emitir búsqueda si el texto es menor a 3 caracteres', () => {
-    spyOn(component.onSearch, 'emit');
+    spyOn(component.searchSubmit, 'emit');
 
     component.query.set('pi');
     component.onEnter();
 
-    expect(component.onSearch.emit).not.toHaveBeenCalled();
+    expect(component.searchSubmit.emit).not.toHaveBeenCalled();
   });
 
   it('debería emitir búsqueda si el texto es válido', () => {
-    spyOn(component.onSearch, 'emit');
+    spyOn(component.searchSubmit, 'emit');
 
     component.query.set('pizza');
     component.onEnter();
 
-    expect(component.onSearch.emit).toHaveBeenCalledWith('pizza');
+    expect(component.searchSubmit.emit).toHaveBeenCalledWith('pizza');
   });
 });

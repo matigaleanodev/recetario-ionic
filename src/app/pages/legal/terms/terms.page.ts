@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
 import {
   IonContent,
   IonHeader,
@@ -26,8 +24,6 @@ import { TranslatePipe } from '@shared/translate/translate-pipe';
     TranslatePipe,
   ],
 })
-export class TermsPage implements OnInit {
+export class TermsPage {
   constructor() {}
-
-  ngOnInit() {}
 }

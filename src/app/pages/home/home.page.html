@@ -10,7 +10,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
     <ion-refresher-content />
   </ion-refresher>
-  <app-home-hero (onSearch)="toSearchRecipe($event)" />
+  <app-home-hero (searchSubmit)="toSearchRecipe($event)" />
 
   <ion-grid>
     <ion-row>

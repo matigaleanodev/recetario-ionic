@@ -37,6 +37,8 @@ function extractKeysFromContent(content: string): string[] {
   return foundKeys;
 }
 
+const IGNORED_KEYS = new Set(['xNoKeyTranslate']);
+
 function checkMissingKeys() {
   const allFiles = getAllFiles(projectDir)
     .filter((f) => f.endsWith('.ts') || f.endsWith('.html'))
@@ -54,7 +56,7 @@ function checkMissingKeys() {
 
   const definedKeys = Object.keys(esAR);
   const missingKeys = Object.keys(usedKeys).filter(
-    (key) => !definedKeys.includes(key),
+    (key) => !definedKeys.includes(key) && !IGNORED_KEYS.has(key),
   );
 
   if (missingKeys.length === 0) {
