@@ -27,7 +27,7 @@ class RecipeCardStubComponent {
 })
 class HomeHeroStubComponent {
   searchPage = input<boolean>();
-  onSearch = output<string>();
+  serachSubmit = output<string>();
 }
 
 @Component({

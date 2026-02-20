@@ -9,7 +9,7 @@ import { TranslatePipe } from '@shared/translate/translate-pipe';
   styleUrls: ['./home-hero.component.scss'],
 })
 export class HomeHeroComponent {
-  readonly onSearch = output<string>();
+  readonly searchSubmit = output<string>();
 
   readonly query = signal('');
 
@@ -23,6 +23,6 @@ export class HomeHeroComponent {
 
     if (q.length < 3) return;
 
-    this.onSearch.emit(q);
+    this.searchSubmit.emit(q);
   }
 }

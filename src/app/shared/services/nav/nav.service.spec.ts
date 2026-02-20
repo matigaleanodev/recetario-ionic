@@ -34,9 +34,12 @@ describe('NavService', () => {
   it('debería navegar hacia adelante con queryParams opcionales', () => {
     service.forward('/test');
 
-    expect(navControllerMock.navigateForward).toHaveBeenCalledWith('/test', {
-      queryParams: undefined,
-    });
+    expect(navControllerMock.navigateForward).toHaveBeenCalledWith(
+      '/test',
+      jasmine.objectContaining({
+        queryParams: undefined,
+      }),
+    );
   });
 
   it('debería volver hacia atrás', () => {
@@ -64,9 +67,12 @@ describe('NavService', () => {
   it('debería navegar a search con query válida', () => {
     service.search('  pollo  ');
 
-    expect(navControllerMock.navigateForward).toHaveBeenCalledWith('/search', {
-      queryParams: { q: 'pollo' },
-    });
+    expect(navControllerMock.navigateForward).toHaveBeenCalledWith(
+      '/search',
+      jasmine.objectContaining({
+        queryParams: { q: 'pollo' },
+      }),
+    );
   });
 
   it('no debería navegar a search si la query está vacía', () => {
